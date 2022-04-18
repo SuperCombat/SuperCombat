@@ -1,0 +1,9 @@
+settings:
+
+  language: "en"
+
+  #default: false
+  mob-tagging: false
+
+  #default: 30
+  tag-duration: 30

@@ -1,0 +1,6 @@
+rootProject.name = 'supercombattag'
+include 'bukkit'
+include 'nms'
+include 'api'
+include 'common'
+

@@ -1,0 +1,7 @@
+name: SuperCombatTag
+version: '${project.version}'
+main: me.kafein.supercombattag.SuperCombatTag
+api-version: 1.18
+authors: [ Kafein ]
+description: Combat tag plugin for minecraft servers.
+website: discord.gg/kafein

@@ -1,0 +1,4 @@
+# Project exclude paths
+/.gradle/
+/bukkit/build/
+/bukkit/build/classes/java/main/
