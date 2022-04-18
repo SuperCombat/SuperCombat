@@ -1,4 +1,4 @@
-package me.kafein.supercombattag.config;
+package me.kafein.bukkit.config;
 
 public class ConfigKeys {
 

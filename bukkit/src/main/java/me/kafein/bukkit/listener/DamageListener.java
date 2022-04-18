@@ -1,9 +1,9 @@
-package me.kafein.supercombattag.listener;
+package me.kafein.bukkit.listener;
 
-import me.kafein.supercombattag.SuperCombatTag;
-import me.kafein.supercombattag.config.ConfigKeys;
-import me.kafein.supercombattag.tag.Tag;
-import me.kafein.supercombattag.tag.TagManager;
+import me.kafein.common.SuperCombatTag;
+import me.kafein.common.tag.Tag;
+import me.kafein.common.tag.TagManager;
+import me.kafein.bukkit.config.ConfigKeys;
 import org.bukkit.entity.Entity;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
@@ -27,7 +27,7 @@ public class DamageListener implements Listener {
 
         if (entity instanceof Player) {
             Player player = (Player) entity;
-            Optional<Tag> optionalTag = tagManager.getTag(player);
+            Optional<Tag> optionalTag = tagManager.getTag(player.getUniqueId());
             Tag tag = optionalTag.orElseGet(() -> new Tag(player.getName(), player.getUniqueId()));
             tag.setDuration(ConfigKeys.TAG_DURATION.getKey());
             tag.setOtherUser(damager.getName(), damager.getUniqueId());
@@ -35,7 +35,7 @@ public class DamageListener implements Listener {
 
         if (damager instanceof Player) {
             Player player = (Player) damager;
-            Optional<Tag> optionalTag = tagManager.getTag(player);
+            Optional<Tag> optionalTag = tagManager.getTag(player.getUniqueId());
             Tag tag = optionalTag.orElseGet(() -> new Tag(player.getName(), player.getUniqueId()));
             tag.setDuration(ConfigKeys.TAG_DURATION.getKey());
             tag.setOtherUser(damager.getName(), damager.getUniqueId());

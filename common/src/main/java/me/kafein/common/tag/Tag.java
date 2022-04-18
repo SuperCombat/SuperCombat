@@ -1,4 +1,4 @@
-package me.kafein.supercombattag.tag;
+package me.kafein.common.tag;
 
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;

@@ -1,14 +1,11 @@
-package me.kafein.supercombattag.runnable;
+package me.kafein.common.runnable;
 
-import me.kafein.supercombattag.SuperCombatTag;
-import me.kafein.supercombattag.tag.Tag;
-import me.kafein.supercombattag.tag.TagManager;
+import me.kafein.common.tag.Tag;
 
 import java.util.Iterator;
 
 public class DurationRunnable implements Runnable {
 
-    private final TagManager tagManager = SuperCombatTag.getInstance().getTagManager();
 
     @Override
     public void run() {

@@ -1,4 +1,4 @@
-package me.kafein.supercombattag.config;
+package me.kafein.bukkit.config;
 
 import lombok.Getter;
 import lombok.Setter;

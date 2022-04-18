@@ -1,7 +1,6 @@
-package me.kafein.supercombattag.tag;
+package me.kafein.common.tag;
 
 import lombok.Getter;
-import org.bukkit.entity.Player;
 
 import java.util.Map;
 import java.util.Optional;
@@ -12,10 +11,6 @@ import java.util.concurrent.ConcurrentHashMap;
 public class TagManager {
 
     private final Map<UUID, Tag> tagMap = new ConcurrentHashMap<>();
-
-    public Optional<Tag> getTag(Player player) {
-        return Optional.ofNullable(tagMap.get(player.getUniqueId()));
-    }
 
     public Optional<Tag> getTag(UUID playerUUID) {
         return Optional.ofNullable(tagMap.get(playerUUID));
