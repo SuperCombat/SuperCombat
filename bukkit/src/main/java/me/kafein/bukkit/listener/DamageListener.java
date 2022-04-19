@@ -1,9 +1,9 @@
 package me.kafein.bukkit.listener;
 
 import me.kafein.common.SuperCombatTag;
+import me.kafein.common.config.ConfigKeys;
 import me.kafein.common.tag.Tag;
 import me.kafein.common.tag.TagManager;
-import me.kafein.common.config.ConfigKeys;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Entity;
 import org.bukkit.entity.Player;
@@ -11,6 +11,7 @@ import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.entity.EntityDamageByEntityEvent;
 
+import java.util.Arrays;
 import java.util.Optional;
 
 public class DamageListener implements Listener {

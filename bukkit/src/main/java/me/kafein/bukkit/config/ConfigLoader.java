@@ -11,6 +11,7 @@ import org.bukkit.plugin.Plugin;
 
 import java.io.File;
 import java.lang.reflect.Field;
+import java.util.Arrays;
 import java.util.Locale;
 
 public class ConfigLoader {
@@ -43,10 +44,10 @@ public class ConfigLoader {
                 file.getParentFile().mkdirs();
                 try {
                     plugin.saveResource(configType.getFileName(), false);
-                }catch (IllegalArgumentException e) {
+                } catch (IllegalArgumentException e) {
                     if (configType == ConfigType.LANGUAGE) {
                         file.createNewFile();
-                    }else {
+                    } else {
                         throw new NullPointerException("Resource not found! : " + configType.getFileName());
                     }
                 }
@@ -61,21 +62,27 @@ public class ConfigLoader {
 
         }
 
+        System.out.println(ConfigType.SETTINGS.getConfigurationNode().getNode("settings", "language").getString());
+
         return this;
 
     }
 
     @SneakyThrows
-    public <T> void loadFields() {
+    public <T> ConfigLoader loadFields() {
 
         for (Field field : ConfigKeys.class.getDeclaredFields()) {
             ConfigKey<T> configKey = (ConfigKey<T>) field.get(null);
-            ConfigType configType = configKey.getConfigType();
+            ConfigType configType = ConfigType.valueOf(configKey.getConfigType().toUpperCase(Locale.ENGLISH));
             ConfigurationNode configurationNode = configType.getConfigurationNode();
             if (configurationNode == null) throw new NullPointerException("ConfigurationNode is null");
-            configurationNode = configurationNode.getNode(configType.name().toLowerCase(Locale.ROOT), configKey.getPath());
-            configKey.setKey((T) configurationNode.getValue());
+            configurationNode = configurationNode.getNode(configKey.getConfigType());
+            for (String path : configKey.getPath()) configurationNode = configurationNode.getNode(path);
+            T value = (T) configurationNode.getValue();
+            if (value != null) configKey.setKey((T) configurationNode.getValue());
         }
+
+        return this;
 
     }
 

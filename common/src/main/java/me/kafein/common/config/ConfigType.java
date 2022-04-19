@@ -7,13 +7,9 @@ import org.checkerframework.checker.nullness.qual.Nullable;
 import java.util.Locale;
 
 public enum ConfigType {
-    SETTINGS(null), LANGUAGE(null);
+    SETTINGS(), LANGUAGE();
 
     @Setter private ConfigurationNode configurationNode;
-
-    ConfigType(ConfigurationNode configurationNode) {
-        this.configurationNode = configurationNode;
-    }
 
     @Nullable
     public ConfigurationNode getConfigurationNode() {

@@ -7,11 +7,11 @@ import lombok.Setter;
 @Setter
 public class ConfigKey<T> {
 
-    private final ConfigType configType;
+    private final String configType;
     private final String[] path;
     private T key;
 
-    public ConfigKey(T key, ConfigType configType, String... path) {
+    public ConfigKey(T key, String configType, String... path) {
         this.key = key;
         this.configType = configType;
         this.path = path;
