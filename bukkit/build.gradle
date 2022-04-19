@@ -15,7 +15,6 @@ dependencies {
 shadowJar {
     archiveFileName = 'SuperCombatTag.jar'
     minimize()
-    manifest.attributes["Main-Class"] = "${project.group}.Main"
 }
 
 artifacts {

@@ -9,9 +9,6 @@ public interface SuperCombatTag {
         return SuperCombatTagProvider.getSuperCombatTag();
     }
 
-    void onEnable();
-    void onDisable();
-
     @NonNull TagManager getTagManager();
 
 }

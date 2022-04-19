@@ -1,13 +1,15 @@
 package me.kafein.common.runnable;
 
+import me.kafein.common.SuperCombatTag;
 import me.kafein.common.tag.Tag;
+import me.kafein.common.tag.TagManager;
 
 import java.util.Iterator;
 
 public class DurationRunnable implements Runnable {
 
+    private final TagManager tagManager = SuperCombatTag.getInstance().getTagManager();
 
-    @Override
     public void run() {
 
         Iterator<Tag> tagIterator = tagManager.getTagMap().values().iterator();
@@ -19,6 +21,7 @@ public class DurationRunnable implements Runnable {
                 tagIterator.remove();
                 continue;
             }
+
             tag.removeDuration(1);
 
         }
