@@ -1,7 +1,7 @@
 package me.kafein.common.config;
 
-import com.google.common.base.Enums;
 import lombok.SneakyThrows;
+import me.kafein.common.SuperCombatTag;
 import me.kafein.common.config.language.Language;
 import ninja.leaping.configurate.ConfigurationNode;
 import ninja.leaping.configurate.loader.ConfigurationLoader;
@@ -22,10 +22,9 @@ public class ConfigLoader {
     private final Map<ConfigType, ConfigurationNode> configurationNodeMap = new HashMap<>();
 
     @SneakyThrows
-    public ConfigLoader loadConfigs(Class<?> clazz, String dataFolder) {
-
+    public ConfigLoader loadConfigs(String dataFolder) {
+        Class<?> clazz = SuperCombatTag.class;
         for (ConfigType configType : ConfigType.values()) {
-
             ClassLoader classLoader = clazz.getClassLoader();
             File file = null;
             InputStream inputStream = null;
@@ -62,9 +61,7 @@ public class ConfigLoader {
                     .setFile(file)
                     .build();
             configurationNodeMap.put(configType, loader.load());
-
         }
-
         return this;
     }
 
@@ -73,12 +70,14 @@ public class ConfigLoader {
         for (Field field : ConfigKeys.class.getDeclaredFields()) {
             ConfigKey<T> configKey = (ConfigKey<T>) field.get(null);
             ConfigType configType = configKey.getConfigType();
-            ConfigurationNode node = configurationNodeMap.getOrDefault(configKey, ConfigurationNode.root());
+            ConfigurationNode node = configurationNodeMap.getOrDefault(configType, ConfigurationNode.root());
             node = node.getNode(configType.name().toLowerCase(Locale.ROOT));
             for (String path : configKey.getPath()) {
                 node = node.getNode(path);
             }
-            configKey.setValue((T) node.getValue());
+            T value = (T) node.getValue();
+            if (value == null) continue;
+            configKey.setValue(value);
         }
         return this;
     }

@@ -21,6 +21,6 @@ public class ConfigKeys {
 
     public static final ConfigKey<String> NO_PLAYER = new ConfigKey<>("&cYou must be a player to use this command!", ConfigType.LANGUAGE, "no-player");
 
-    public static final ConfigKey<List<String>> HELP_MESSAGE = new ConfigKey<>(ImmutableList.of(), ConfigType.LANGUAGE, "help-message");
+    public static final ConfigKey<List<String>> HELP_MESSAGE = new ConfigKey<>(ImmutableList.of("" , ""), ConfigType.LANGUAGE, "help-message");
 
 }
