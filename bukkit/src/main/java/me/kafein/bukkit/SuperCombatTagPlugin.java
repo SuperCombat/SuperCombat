@@ -7,6 +7,7 @@ import me.kafein.bukkit.listener.DamageListener;
 import me.kafein.common.SuperCombatTag;
 import me.kafein.common.SuperCombatTagProvider;
 import me.kafein.common.config.ConfigLoader;
+import me.kafein.common.expansion.ExpansionLoader;
 import me.kafein.common.runnable.DurationRunnable;
 import me.kafein.common.tag.TagManager;
 import org.bukkit.Bukkit;
@@ -29,9 +30,11 @@ public final class SuperCombatTagPlugin extends JavaPlugin implements SuperComba
         SuperCombatTagProvider.setSuperCombatTag(this);
 
         configLoader = new ConfigLoader()
-                .loadConfigs(getClass(), getDataFolder().getAbsolutePath())
+                .loadConfigs(getDataFolder().getAbsolutePath())
                 .loadFields();
         tagManager = new TagManager();
+
+        new ExpansionLoader().load(getDataFolder().getAbsolutePath());
 
         new BukkitCommandManager(this).registerCommand(new CombatTagCMD(this));
 
