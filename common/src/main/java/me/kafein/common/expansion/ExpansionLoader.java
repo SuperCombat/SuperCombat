@@ -23,7 +23,6 @@ public class ExpansionLoader {
             Enumeration<JarEntry> entries = jarFile.entries();
             while (entries.hasMoreElements()) {
                 JarEntry jarEntry = entries.nextElement();
-                jarFile.getInputStream(jarEntry);
                 if (jarEntry.getName().endsWith(".class")) {
                     String className = jarEntry.getName().replaceAll("/", ".").replaceAll(".class", "");
                     Class<?> clazz = Class.forName(className);
