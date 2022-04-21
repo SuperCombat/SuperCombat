@@ -24,7 +24,7 @@ public class TagManager {
         tagMap.remove(playerUUID);
     }
 
-    public boolean containsTag(UUID playerUUID) {
+    public boolean isTagged(UUID playerUUID) {
         return tagMap.containsKey(playerUUID);
     }
 
