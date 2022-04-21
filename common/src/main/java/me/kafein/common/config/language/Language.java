@@ -1,15 +1,18 @@
 package me.kafein.common.config.language;
 
+import org.checkerframework.checker.nullness.qual.Nullable;
+
 public enum Language {
     EN, TR;
 
-    public static boolean contains(String language) {
-        for (Language l : Language.values()) {
-            if (l.name().equals(language)) {
-                return true;
+    @Nullable
+    public static Language of(String name) {
+        for (Language language : Language.values()) {
+            if (language.name().equalsIgnoreCase(name)) {
+                return language;
             }
         }
-        return false;
+        return null;
     }
 
 }

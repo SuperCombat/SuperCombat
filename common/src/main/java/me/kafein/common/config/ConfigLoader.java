@@ -36,7 +36,7 @@ public class ConfigLoader {
                     break;
                 case LANGUAGE:
                     String language = configurationNodeMap.get(ConfigType.SETTINGS).getNode("settings", "language").getString();
-                    if (language == null || Language.contains(language.toUpperCase(Locale.ROOT))) {
+                    if (language == null || Language.of(language.toUpperCase(Locale.ROOT)) == null) {
                         language = "en";
                     }
                     file = new File(dataFolder + "/language/language_" + language + ".yml");
