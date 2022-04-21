@@ -1,4 +1,19 @@
 package me.kafein.common.expansion;
 
-public class Expansion {
+public interface Expansion {
+
+    void onEnable();
+
+    void onDisable();
+
+    void onReload();
+
+    String getName();
+
+    String getVersion();
+
+    String getDescription();
+
+    String getAuthor();
+
 }
