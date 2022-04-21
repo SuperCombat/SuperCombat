@@ -10,11 +10,12 @@ import me.kafein.bukkit.SuperCombatTagPlugin;
 import me.kafein.bukkit.util.ColorSerializer;
 import me.kafein.common.config.ConfigKeys;
 import me.kafein.common.config.ConfigLoader;
+import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 import org.bukkit.plugin.Plugin;
 
 @CommandAlias("supercombattag|combattag|sct|ct")
-@Description("SuperCombatTag plugin's main command.")
+@Description("SuperCombatTag main command.")
 @RequiredArgsConstructor
 public class CombatTagCMD extends BaseCommand {
 
@@ -23,22 +24,24 @@ public class CombatTagCMD extends BaseCommand {
     private final Plugin plugin;
 
     @HelpCommand
-    @Description("Shows this help message.")
-    public void onHelp(Player player) {
-
+    @Description("Shows the help message.")
+    public void onHelp(CommandSender sender) {
+        ConfigKeys.HELP_MESSAGE.getValue().forEach(message -> {
+            sender.sendMessage(ColorSerializer.serialize(message));
+        });
     }
 
     @Subcommand("reload")
-    @Description("Reloads the plugin's configuration.")
-    public void onReload(Player player) {
-        if (!player.hasPermission(ConfigKeys.ADMIN_PERM.getValue())) {
-            player.sendMessage(ColorSerializer.serialize(ConfigKeys.NO_PERMISSION.getValue()));
+    @Description("Reloads the plugin's configs.")
+    public void onReload(CommandSender sender) {
+        if (!sender.hasPermission(ConfigKeys.ADMIN_PERM.getValue())) {
+            sender.sendMessage(ColorSerializer.serialize(ConfigKeys.NO_PERMISSION.getValue()));
             return;
         }
         configLoader
-                .loadConfigs(getClass(), plugin.getDataFolder().getAbsolutePath())
+                .loadConfigs(plugin.getDataFolder().getAbsolutePath())
                 .loadFields();
-        player.sendMessage("§aCombatTag config reloaded.");
+        sender.sendMessage("§aCombatTag config reloaded.");
     }
 
 }
