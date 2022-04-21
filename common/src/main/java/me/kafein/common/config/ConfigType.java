@@ -16,8 +16,4 @@ public enum ConfigType {
         return configurationNode;
     }
 
-    public String getFileName() {
-        return this.name().toLowerCase(Locale.ROOT) + ".yml";
-    }
-
 }

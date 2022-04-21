@@ -4,7 +4,8 @@ import lombok.Getter;
 import me.kafein.bukkit.listener.DamageListener;
 import me.kafein.common.SuperCombatTag;
 import me.kafein.common.SuperCombatTagProvider;
-import me.kafein.bukkit.config.ConfigLoader;
+import me.kafein.common.config.ConfigLoader;
+import me.kafein.common.config.ConfigType;
 import me.kafein.common.runnable.DurationRunnable;
 import me.kafein.common.tag.TagManager;
 import org.bukkit.Bukkit;
@@ -25,8 +26,9 @@ public final class SuperCombatTagPlugin extends JavaPlugin implements SuperComba
         SuperCombatTagProvider.setSuperCombatTag(this);
 
         tagManager = new TagManager();
-        new ConfigLoader(this)
-                .loadConfigs()
+        new ConfigLoader()
+                .loadConfig(ConfigType.SETTINGS, getClass(), getDataFolder().getAbsolutePath())
+                .loadConfig(ConfigType.LANGUAGE, getClass(), getDataFolder().getAbsolutePath())
                 .loadFields();
         Bukkit.getPluginManager().registerEvents(new DamageListener(), this);
         Bukkit.getScheduler().runTaskTimer(this, new DurationRunnable(), 20L, 20L);
