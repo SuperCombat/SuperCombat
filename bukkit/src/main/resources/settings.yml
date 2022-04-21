@@ -2,6 +2,8 @@ settings:
 
   language: "en"
 
+  admin-permission: "sct.admin"
+
   #default: false
   mob-tagging: false
 

@@ -1,11 +1,12 @@
 package me.kafein.bukkit;
 
+import co.aikar.commands.BukkitCommandManager;
 import lombok.Getter;
+import me.kafein.bukkit.command.CombatTagCMD;
 import me.kafein.bukkit.listener.DamageListener;
 import me.kafein.common.SuperCombatTag;
 import me.kafein.common.SuperCombatTagProvider;
 import me.kafein.common.config.ConfigLoader;
-import me.kafein.common.config.ConfigType;
 import me.kafein.common.runnable.DurationRunnable;
 import me.kafein.common.tag.TagManager;
 import org.bukkit.Bukkit;
@@ -17,6 +18,8 @@ public final class SuperCombatTagPlugin extends JavaPlugin implements SuperComba
     private static SuperCombatTag instance;
 
     @Getter
+    private ConfigLoader configLoader;
+    @Getter
     private TagManager tagManager;
 
     @Override
@@ -25,11 +28,13 @@ public final class SuperCombatTagPlugin extends JavaPlugin implements SuperComba
         instance = this;
         SuperCombatTagProvider.setSuperCombatTag(this);
 
-        tagManager = new TagManager();
-        new ConfigLoader()
-                .loadConfig(ConfigType.SETTINGS, getClass(), getDataFolder().getAbsolutePath())
-                .loadConfig(ConfigType.LANGUAGE, getClass(), getDataFolder().getAbsolutePath())
+        configLoader = new ConfigLoader()
+                .loadConfigs(getClass(), getDataFolder().getAbsolutePath())
                 .loadFields();
+        tagManager = new TagManager();
+
+        new BukkitCommandManager(this).registerCommand(new CombatTagCMD(this));
+
         Bukkit.getPluginManager().registerEvents(new DamageListener(), this);
         Bukkit.getScheduler().runTaskTimer(this, new DurationRunnable(), 20L, 20L);
 

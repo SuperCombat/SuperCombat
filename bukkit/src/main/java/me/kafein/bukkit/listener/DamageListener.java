@@ -11,7 +11,6 @@ import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.entity.EntityDamageByEntityEvent;
 
-import java.util.Arrays;
 import java.util.Optional;
 
 public class DamageListener implements Listener {
@@ -25,7 +24,7 @@ public class DamageListener implements Listener {
         Entity damager = e.getDamager();
 
         if (!(entity instanceof Player) && !(damager instanceof Player)) return;
-        if (!(entity instanceof Player) && !ConfigKeys.MOB_TAGGING.getKey()) return;
+        if (!(entity instanceof Player) && !ConfigKeys.MOB_TAGGING.getValue()) return;
 
         tagManager.getTagMap().values().forEach(tag -> Bukkit.broadcastMessage(tag.getUserName() + " : " + tag.getDuration()));
 
@@ -33,7 +32,7 @@ public class DamageListener implements Listener {
             Player player = (Player) entity;
             Optional<Tag> optionalTag = tagManager.getTag(player.getUniqueId());
             Tag tag = optionalTag.orElseGet(() -> new Tag(player.getName(), player.getUniqueId()));
-            tag.setDuration(ConfigKeys.TAG_DURATION.getKey());
+            tag.setDuration(ConfigKeys.TAG_DURATION.getValue());
             tag.setOtherUser(damager.getName(), damager.getUniqueId());
             tagManager.addTag(tag);
         }
@@ -42,7 +41,7 @@ public class DamageListener implements Listener {
             Player player = (Player) damager;
             Optional<Tag> optionalTag = tagManager.getTag(player.getUniqueId());
             Tag tag = optionalTag.orElseGet(() -> new Tag(player.getName(), player.getUniqueId()));
-            tag.setDuration(ConfigKeys.TAG_DURATION.getKey());
+            tag.setDuration(ConfigKeys.TAG_DURATION.getValue());
             tag.setOtherUser(damager.getName(), damager.getUniqueId());
             tagManager.addTag(tag);
         }

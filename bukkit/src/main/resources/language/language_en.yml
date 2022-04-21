@@ -1,3 +1,15 @@
 language:
 
-  prefix: ""
+  prefix: "&6SuperCombatTag &8➜"
+
+  no-permission: "&cYou don't have permission to use this command."
+  no-player: "&cYou must be a player to use this command."
+
+  help-message:
+    - ""
+    - ""
+    - "&6SuperCombatTag &8➜ &7SuperCombatTag Help"
+    - ""
+    - "&7/sct help &8- &7Show this help message."
+    - "&7/sct reload &8- &7Reload the config."
+    - ""

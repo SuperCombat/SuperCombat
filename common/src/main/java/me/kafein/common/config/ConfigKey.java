@@ -5,14 +5,14 @@ import lombok.Setter;
 
 @Getter
 @Setter
-public class ConfigKey<T> {
+public class ConfigKey<V> {
 
-    private final String configType;
+    private final ConfigType configType;
     private final String[] path;
-    private T key;
+    private V value;
 
-    public ConfigKey(T key, String configType, String... path) {
-        this.key = key;
+    public ConfigKey(V value, ConfigType configType, String... path) {
+        this.value = value;
         this.configType = configType;
         this.path = path;
     }

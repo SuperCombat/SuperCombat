@@ -1,6 +1,7 @@
 package me.kafein.common;
 
 import lombok.NonNull;
+import me.kafein.common.config.ConfigLoader;
 import me.kafein.common.tag.TagManager;
 
 public interface SuperCombatTag {
@@ -10,5 +11,7 @@ public interface SuperCombatTag {
     }
 
     @NonNull TagManager getTagManager();
+
+    @NonNull ConfigLoader getConfigLoader();
 
 }
