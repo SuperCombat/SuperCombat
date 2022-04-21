@@ -16,6 +16,9 @@ public class Tag {
     private String otherUserName;
     private UUID otherUserUUID;
 
+    private TagType tagType;
+    private TagReason tagReason;
+
     private long duration;
 
     public void addDuration(long duration) {
