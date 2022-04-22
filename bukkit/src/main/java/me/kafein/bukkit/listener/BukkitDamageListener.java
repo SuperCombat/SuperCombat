@@ -16,7 +16,7 @@ import org.bukkit.event.entity.EntityDamageByEntityEvent;
 
 import java.util.Optional;
 
-public class DamageListener implements Listener {
+public class BukkitDamageListener implements Listener {
 
     private final TagManager tagManager = SuperCombatTag.getInstance().getTagManager();
 

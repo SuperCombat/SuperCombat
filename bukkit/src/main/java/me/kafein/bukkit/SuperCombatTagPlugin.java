@@ -3,7 +3,7 @@ package me.kafein.bukkit;
 import co.aikar.commands.BukkitCommandManager;
 import lombok.Getter;
 import me.kafein.bukkit.command.CombatTagCMD;
-import me.kafein.bukkit.listener.DamageListener;
+import me.kafein.bukkit.listener.BukkitDamageListener;
 import me.kafein.common.SuperCombatTag;
 import me.kafein.common.SuperCombatTagProvider;
 import me.kafein.common.config.ConfigLoader;
@@ -38,7 +38,7 @@ public final class SuperCombatTagPlugin extends JavaPlugin implements SuperComba
 
         new BukkitCommandManager(this).registerCommand(new CombatTagCMD(this));
 
-        Bukkit.getPluginManager().registerEvents(new DamageListener(), this);
+        Bukkit.getPluginManager().registerEvents(new BukkitDamageListener(), this);
         Bukkit.getScheduler().runTaskTimer(this, new DurationRunnable(), 20L, 20L);
 
     }
