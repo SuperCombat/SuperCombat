@@ -9,3 +9,15 @@ settings:
 
   #default: 30
   tag-duration: 30
+
+  quit-punishment:
+    enabled: true
+    kick-enabled: true
+    punishment-commands: []
+
+  #Untag if the player dies
+  death-untagging:
+    #default: true
+    self: true
+    #default: false
+    enemy: false
