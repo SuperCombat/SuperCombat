@@ -1,5 +1,5 @@
 package me.kafein.common.tag;
 
-public enum TagType {
+public enum TagCause {
     PLAYER, MOB, UNKNOWN;
 }

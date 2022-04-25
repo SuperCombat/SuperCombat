@@ -16,7 +16,7 @@ public class Tag {
     private String otherUserName;
     private UUID otherUserUUID;
 
-    private TagType tagType;
+    private TagCause tagCause;
     private TagReason tagReason;
 
     private long duration;
