@@ -6,20 +6,21 @@ import co.aikar.commands.annotation.Description;
 import co.aikar.commands.annotation.HelpCommand;
 import co.aikar.commands.annotation.Subcommand;
 import lombok.RequiredArgsConstructor;
-import me.kafein.bukkit.SuperCombatTagPlugin;
+import me.kafein.bukkit.SuperCombatPlugin;
 import me.kafein.bukkit.util.ColorSerializer;
 import me.kafein.common.config.ConfigKeys;
 import me.kafein.common.config.ConfigLoader;
+import me.kafein.common.tag.TagManager;
 import org.bukkit.command.CommandSender;
-import org.bukkit.entity.Player;
 import org.bukkit.plugin.Plugin;
 
-@CommandAlias("supercombattag|combattag|sct|ct")
-@Description("SuperCombatTag main command.")
+@CommandAlias("supercombattag|supercombat|combattag|sct|sc|ct")
+@Description("SuperCombat main command.")
 @RequiredArgsConstructor
-public class CombatTagCMD extends BaseCommand {
+public class BukkitCombatCMD extends BaseCommand {
 
-    private final ConfigLoader configLoader = SuperCombatTagPlugin.getInstance().getConfigLoader();
+    private final ConfigLoader configLoader = SuperCombatPlugin.getInstance().getConfigLoader();
+    private final TagManager tagManager = SuperCombatPlugin.getInstance().getTagManager();
 
     private final Plugin plugin;
 
@@ -42,6 +43,18 @@ public class CombatTagCMD extends BaseCommand {
                 .loadConfigs(plugin.getDataFolder().getAbsolutePath())
                 .loadFields();
         sender.sendMessage("§aCombatTag config reloaded.");
+    }
+
+    @Subcommand("list")
+    @Description("Shows the list of tagged players.")
+    public void onList(CommandSender sender) {
+        if (!sender.hasPermission(ConfigKeys.ADMIN_PERM.getValue())) {
+            sender.sendMessage(ColorSerializer.serialize(ConfigKeys.NO_PERMISSION.getValue()));
+            return;
+        }
+        tagManager.getTagMap().values().forEach(tag -> {
+            sender.sendMessage(tag.getUserName() + " : " + tag.getDuration());
+        });
     }
 
 }
