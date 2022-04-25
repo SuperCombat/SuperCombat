@@ -16,11 +16,11 @@ public class TagManager {
         return Optional.ofNullable(tagMap.get(playerUUID));
     }
 
-    public void addTag(Tag tag) {
+    public void tagPlayer(Tag tag) {
         tagMap.put(tag.getUserUUID(), tag);
     }
 
-    public void removeTag(UUID playerUUID) {
+    public void unTagPlayer(UUID playerUUID) {
         tagMap.remove(playerUUID);
     }
 
