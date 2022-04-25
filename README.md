@@ -1,2 +1,2 @@
-# SuperCombatTag
+# SuperCombat
 discord.gg/kafein
