@@ -1,2 +1,2 @@
 # SuperCombat
-discord.gg/kafein
+https://discord.gg/vx95fKG7fw
