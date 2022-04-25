@@ -3,5 +3,5 @@ version: 1.0.0
 main: me.kafein.bukkit.SuperCombatPlugin
 api-version: 1.13
 authors: [ Kafein ]
-description: Combat tag plugin for minecraft servers.
+description: Combat plugin for minecraft servers.
 website: discord.gg/kafein
