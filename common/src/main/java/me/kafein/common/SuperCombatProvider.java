@@ -3,9 +3,9 @@ package me.kafein.common;
 import lombok.Getter;
 import lombok.Setter;
 
-public class SuperCombatTagProvider {
+public class SuperCombatProvider {
 
     @Getter @Setter
-    private static SuperCombatTag superCombatTag;
+    private static SuperCombat superCombat;
 
 }

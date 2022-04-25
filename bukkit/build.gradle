@@ -15,7 +15,7 @@ dependencies {
 }
 
 shadowJar {
-    archiveFileName = 'SuperCombatTag.jar'
+    archiveFileName = 'SuperCombat.jar'
     minimize()
 }
 

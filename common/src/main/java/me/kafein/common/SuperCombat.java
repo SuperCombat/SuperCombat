@@ -4,10 +4,10 @@ import lombok.NonNull;
 import me.kafein.common.config.ConfigLoader;
 import me.kafein.common.tag.TagManager;
 
-public interface SuperCombatTag {
+public interface SuperCombat {
 
-    static SuperCombatTag getInstance() {
-        return SuperCombatTagProvider.getSuperCombatTag();
+    static SuperCombat getInstance() {
+        return SuperCombatProvider.getSuperCombat();
     }
 
     @NonNull TagManager getTagManager();
