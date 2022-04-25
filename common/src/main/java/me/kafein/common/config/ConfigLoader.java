@@ -1,7 +1,7 @@
 package me.kafein.common.config;
 
 import lombok.SneakyThrows;
-import me.kafein.common.SuperCombatTag;
+import me.kafein.common.SuperCombat;
 import me.kafein.common.config.language.Language;
 import ninja.leaping.configurate.ConfigurationNode;
 import ninja.leaping.configurate.loader.ConfigurationLoader;
@@ -23,7 +23,7 @@ public class ConfigLoader {
 
     @SneakyThrows
     public ConfigLoader loadConfigs(String dataFolder) {
-        Class<?> clazz = SuperCombatTag.class;
+        Class<?> clazz = SuperCombat.class;
         for (ConfigType configType : ConfigType.values()) {
             ClassLoader classLoader = clazz.getClassLoader();
             File file = null;
