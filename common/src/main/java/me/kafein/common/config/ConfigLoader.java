@@ -67,17 +67,18 @@ public class ConfigLoader {
 
     @SneakyThrows
     public <T> ConfigLoader loadFields() {
-        for (Field field : ConfigKeys.class.getDeclaredFields()) {
-            ConfigKey<T> configKey = (ConfigKey<T>) field.get(null);
-            ConfigType configType = configKey.getConfigType();
-            ConfigurationNode node = configurationNodeMap.getOrDefault(configType, ConfigurationNode.root());
-            node = node.getNode(configType.name().toLowerCase(Locale.ROOT));
-            for (String path : configKey.getPath()) {
-                node = node.getNode(path);
+        for (ConfigType configType : ConfigType.values()) {
+            for (Field field : configType.getClazz().getDeclaredFields()) {
+                ConfigKey<T> configKey = (ConfigKey<T>) field.get(null);
+                ConfigurationNode node = configurationNodeMap.getOrDefault(configType, ConfigurationNode.root());
+                node = node.getNode(configType.name().toLowerCase(Locale.ROOT));
+                for (String path : configKey.getPath()) {
+                    node = node.getNode(path);
+                }
+                T value = (T) node.getValue();
+                if (value == null) continue;
+                configKey.setValue(value);
             }
-            T value = (T) node.getValue();
-            if (value == null) continue;
-            configKey.setValue(value);
         }
         return this;
     }

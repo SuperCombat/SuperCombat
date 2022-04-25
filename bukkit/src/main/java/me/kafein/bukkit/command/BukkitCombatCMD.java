@@ -27,7 +27,7 @@ public class BukkitCombatCMD extends BaseCommand {
     @HelpCommand
     @Description("Shows the help message.")
     public void onHelp(CommandSender sender) {
-        ConfigKeys.HELP_MESSAGE.getValue().forEach(message -> {
+        ConfigKeys.Language.HELP_MESSAGE.getValue().forEach(message -> {
             sender.sendMessage(ColorSerializer.serialize(message));
         });
     }
@@ -35,8 +35,8 @@ public class BukkitCombatCMD extends BaseCommand {
     @Subcommand("reload")
     @Description("Reloads the plugin's configs.")
     public void onReload(CommandSender sender) {
-        if (!sender.hasPermission(ConfigKeys.ADMIN_PERM.getValue())) {
-            sender.sendMessage(ColorSerializer.serialize(ConfigKeys.NO_PERMISSION.getValue()));
+        if (!sender.hasPermission(ConfigKeys.Settings.ADMIN_PERM.getValue())) {
+            sender.sendMessage(ColorSerializer.serialize(ConfigKeys.Language.NO_PERMISSION.getValue()));
             return;
         }
         configLoader
@@ -48,8 +48,8 @@ public class BukkitCombatCMD extends BaseCommand {
     @Subcommand("list")
     @Description("Shows the list of tagged players.")
     public void onList(CommandSender sender) {
-        if (!sender.hasPermission(ConfigKeys.ADMIN_PERM.getValue())) {
-            sender.sendMessage(ColorSerializer.serialize(ConfigKeys.NO_PERMISSION.getValue()));
+        if (!sender.hasPermission(ConfigKeys.Settings.ADMIN_PERM.getValue())) {
+            sender.sendMessage(ColorSerializer.serialize(ConfigKeys.Language.NO_PERMISSION.getValue()));
             return;
         }
         tagManager.getTagMap().values().forEach(tag -> {
