@@ -5,9 +5,7 @@ import me.kafein.common.SuperCombat;
 import me.kafein.common.tag.TagManager;
 import me.kafein.common.tag.TagReason;
 import org.bukkit.Bukkit;
-import org.bukkit.entity.Entity;
-import org.bukkit.entity.Player;
-import org.bukkit.entity.Projectile;
+import org.bukkit.entity.*;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.EventPriority;
 import org.bukkit.event.Listener;
@@ -25,6 +23,11 @@ public class BukkitDamageListener implements Listener {
         Entity defenderEntity = e.getEntity();
         Entity attackerEntity = e.getDamager();
 
+        if (attackerEntity instanceof Projectile) {
+            Projectile projectile = (Projectile) attackerEntity;
+            attackerEntity = (Entity) projectile.getShooter();
+        }
+
         if (!BukkitTagController.isPlayer(attackerEntity) || BukkitTagController.isNPC(attackerEntity)) return;
 
         tagManager.getTagMap().forEach((player, tag) -> {
@@ -41,15 +44,14 @@ public class BukkitDamageListener implements Listener {
 
     }
 
-    @EventHandler(priority = EventPriority.HIGHEST, ignoreCancelled = true)
+    /*@EventHandler(priority = EventPriority.HIGHEST, ignoreCancelled = true)
     public void onHit(ProjectileHitEvent event) {
 
-        Projectile projectile = event.getEntity();
-        if (!(projectile.getShooter() instanceof Entity)) return;
+        Entity defenderEntity =
+        Bukkit.broadcastMessage(defenderEntity.getType().name());
+        Entity attackerEntity = (Entity) event.getEntity().getShooter();
 
-        Entity defenderEntity = event.getHitEntity();
-        Entity attackerEntity = (Entity) projectile.getShooter();
-
+        if (!(defenderEntity instanceof LivingEntity)) return;
         if (!BukkitTagController.isPlayer(attackerEntity) || BukkitTagController.isNPC(attackerEntity)) return;
 
         tagManager.getTagMap().forEach((player, tag) -> {
@@ -64,7 +66,6 @@ public class BukkitDamageListener implements Listener {
             tagManager.tagPlayer(BukkitTagController.controlPlayer(defender, attacker, TagReason.DEFENDER));
         }
 
-
-    }
+    }*/
 
 }
