@@ -11,6 +11,7 @@ import me.kafein.common.SuperCombat;
 import me.kafein.common.SuperCombatProvider;
 import me.kafein.common.config.ConfigLoader;
 import me.kafein.common.expansion.ExpansionLoader;
+import me.kafein.common.expansion.ExpansionManager;
 import me.kafein.common.runnable.TagDurationRunnable;
 import me.kafein.common.tag.TagManager;
 import org.bukkit.Bukkit;
@@ -25,6 +26,8 @@ public final class SuperCombatPlugin extends JavaPlugin implements SuperCombat {
     private ConfigLoader configLoader;
     @Getter
     private TagManager tagManager;
+    @Getter
+    private ExpansionManager expansionManager;
 
     @Override
     public void onEnable() {
@@ -36,8 +39,8 @@ public final class SuperCombatPlugin extends JavaPlugin implements SuperCombat {
                 .loadConfigs(getDataFolder().getAbsolutePath())
                 .loadFields();
         tagManager = new TagManager();
-
-        new ExpansionLoader().load(getDataFolder().getAbsolutePath());
+        expansionManager = new ExpansionManager()
+                .load(getDataFolder().getAbsolutePath());
 
         new BukkitCommandManager(this).registerCommand(new BukkitCombatCMD(this));
 

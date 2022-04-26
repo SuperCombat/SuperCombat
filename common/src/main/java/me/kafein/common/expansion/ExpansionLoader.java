@@ -1,41 +1,62 @@
 package me.kafein.common.expansion;
 
 import lombok.SneakyThrows;
+import org.checkerframework.checker.nullness.qual.Nullable;
 
 import java.io.File;
+import java.io.IOException;
+import java.lang.reflect.Method;
+import java.net.MalformedURLException;
+import java.net.URL;
+import java.net.URLClassLoader;
+import java.util.ArrayList;
 import java.util.Enumeration;
+import java.util.List;
 import java.util.jar.JarEntry;
 import java.util.jar.JarFile;
+import java.util.jar.JarInputStream;
 
-public class ExpansionLoader {
+public class ExpansionLoader extends URLClassLoader {
 
+    public ExpansionLoader(File file, ClassLoader classLoader) throws MalformedURLException {
+        super(new URL[]{file.toURI().toURL()}, classLoader);
+    }
+
+    @Nullable
     @SneakyThrows
-    public void load(String dataFolder) {
-        File file = new File(dataFolder + "/expansion");
-        if (!file.exists()) {
-            file.mkdir();
-            return;
-        }
-        File[] files = file.listFiles();
-        if (files == null || files.length == 0) return;
-        for (File f : files) {
-            JarFile jarFile = new JarFile(f);
-            Enumeration<JarEntry> entries = jarFile.entries();
-            while (entries.hasMoreElements()) {
-                JarEntry jarEntry = entries.nextElement();
-                if (jarEntry.getName().endsWith(".class")) {
-                    String className = jarEntry.getName().replaceAll("/", ".").replaceAll(".class", "");
-                    Class<?> clazz = Class.forName(className);
-                    for (Class<?> i : clazz.getInterfaces()) {
-                        if (i.getName().equals(Expansion.class.getName()) && !clazz.isInterface()) {
-                            Expansion expansion = (Expansion) clazz.newInstance();
-                            expansion.onEnable();
-                        }
+    public <T> Class<? extends T> findClass(Class<T> clazz) {
+
+        final URL jar = getURLs()[0];
+        final List<String> matches = new ArrayList<>();
+        final List<Class<? extends T>> classes = new ArrayList<>();
+
+        try (final JarInputStream stream = new JarInputStream(jar.openStream())) {
+            JarEntry entry;
+            while ((entry = stream.getNextJarEntry()) != null) {
+                final String name = entry.getName();
+                if (name.isEmpty() || !name.endsWith(".class")) {
+                    continue;
+                }
+
+                matches.add(name.substring(0, name.lastIndexOf('.')).replace('/', '.'));
+            }
+
+            for (final String match : matches) {
+                try {
+                    final Class<?> loaded = loadClass(match);
+                    if (clazz.isAssignableFrom(loaded)) {
+                        classes.add(loaded.asSubclass(clazz));
                     }
+                } catch (final NoClassDefFoundError ignored) {
                 }
             }
         }
-
+        if (classes.isEmpty()) {
+            close();
+            return null;
+        }
+        return classes.get(0);
     }
 
 }
+
