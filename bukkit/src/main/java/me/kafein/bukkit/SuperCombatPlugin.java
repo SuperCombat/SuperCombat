@@ -19,7 +19,7 @@ import org.bukkit.plugin.java.JavaPlugin;
 public final class SuperCombatPlugin extends JavaPlugin implements SuperCombat {
 
     @Getter
-    private static SuperCombat instance;
+    private static SuperCombatPlugin instance;
 
     @Getter
     private ConfigLoader configLoader;
