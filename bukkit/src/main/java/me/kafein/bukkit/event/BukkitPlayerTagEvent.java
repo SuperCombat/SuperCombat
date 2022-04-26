@@ -14,11 +14,13 @@ public class BukkitPlayerTagEvent extends Event implements Cancellable {
 
     @Getter private final Player player;
     @Getter private final Tag tag;
+    @Getter private final boolean reTag;
     @Getter @Setter private boolean cancelled;
 
-    public BukkitPlayerTagEvent(Player player, Tag tag, boolean cancelled) {
+    public BukkitPlayerTagEvent(Player player, Tag tag, boolean reTag, boolean cancelled) {
         this.player = player;
         this.tag = tag;
+        this.reTag = reTag;
         this.cancelled = cancelled;
     }
 
