@@ -1,7 +1,7 @@
 package me.kafein.common.tag;
 
 import lombok.Getter;
-import me.kafein.common.event.TagEventChecker;
+import me.kafein.common.listener.ListenerChecker;
 import me.kafein.common.tag.untag.UntagReason;
 
 import java.util.Map;
@@ -20,13 +20,16 @@ public class TagManager {
 
     public void tagPlayer(Tag tag) {
         if (tag == null) return;
-        if (tagMap.containsKey(tag.getUserUUID())) TagEventChecker.checkRetag(tagMap.get(tag.getUserUUID()), tag);
-        else TagEventChecker.checkTag(tag);
+        boolean isCancelled = (tagMap.containsKey(tag.getUserUUID())
+                ? ListenerChecker.checkRetag(tagMap.get(tag.getUserUUID()), tag)
+                : ListenerChecker.checkTag(tag));
+        if (isCancelled) return;
         tagMap.put(tag.getUserUUID(), tag);
     }
 
     public void unTagPlayer(UUID playerUUID, UntagReason reason) {
-        TagEventChecker.checkUntag(tagMap.get(playerUUID), reason);
+        if (!tagMap.containsKey(playerUUID)) return;
+        if (!ListenerChecker.checkUntag(tagMap.get(playerUUID), reason)) return;
         tagMap.remove(playerUUID);
     }
 

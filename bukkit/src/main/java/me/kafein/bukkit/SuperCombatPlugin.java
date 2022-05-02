@@ -10,7 +10,6 @@ import me.kafein.bukkit.listener.adapter.BukkitListenerAdapter;
 import me.kafein.common.SuperCombat;
 import me.kafein.common.SuperCombatProvider;
 import me.kafein.common.config.ConfigLoader;
-import me.kafein.common.expansion.ExpansionLoader;
 import me.kafein.common.expansion.ExpansionManager;
 import me.kafein.common.runnable.TagDurationRunnable;
 import me.kafein.common.tag.TagManager;

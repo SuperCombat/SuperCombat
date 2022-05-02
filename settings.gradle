@@ -1,5 +1,3 @@
 rootProject.name = 'supercombat'
 include 'bukkit'
-include 'nms'
 include 'common'
-

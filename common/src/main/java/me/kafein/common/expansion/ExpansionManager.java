@@ -31,6 +31,7 @@ public class ExpansionManager {
             if (clazz == null) continue;
             Expansion expansion = (Expansion) clazz.newInstance();
             expansion.onEnable();
+            expansions.put(expansion.getName(), expansion);
         }
         return this;
     }
