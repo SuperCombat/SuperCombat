@@ -9,7 +9,7 @@ repositories {
 }
 
 dependencies {
-    compileOnly project(':common')
+    implementation project(':common')
     compileOnly 'org.spigotmc:spigot-api:1.18.2-R0.1-SNAPSHOT'
     implementation "co.aikar:acf-bukkit:0.5.1-SNAPSHOT"
 }
