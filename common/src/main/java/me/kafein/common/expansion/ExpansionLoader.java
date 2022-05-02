@@ -4,6 +4,7 @@ import lombok.SneakyThrows;
 import org.jetbrains.annotations.Nullable;
 
 import java.io.File;
+import java.io.IOException;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.net.URLClassLoader;
@@ -19,8 +20,7 @@ public class ExpansionLoader extends URLClassLoader {
     }
 
     @Nullable
-    @SneakyThrows
-    public <T> Class<? extends T> findClass(Class<T> clazz) {
+    public <T> Class<? extends T> findClass(Class<T> clazz) throws IOException, ClassNotFoundException {
 
         final URL jar = getURLs()[0];
         final List<String> matches = new ArrayList<>();
@@ -30,7 +30,7 @@ public class ExpansionLoader extends URLClassLoader {
             JarEntry entry;
             while ((entry = stream.getNextJarEntry()) != null) {
                 final String name = entry.getName();
-                if (name.isEmpty() || !name.endsWith(".class")) {
+                if (!name.endsWith(".class")) {
                     continue;
                 }
                 matches.add(name.substring(0, name.lastIndexOf('.')).replace('/', '.'));

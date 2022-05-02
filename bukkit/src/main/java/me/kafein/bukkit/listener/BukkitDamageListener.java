@@ -15,7 +15,7 @@ import org.bukkit.event.entity.ProjectileHitEvent;
 
 public class BukkitDamageListener implements Listener {
 
-    private final TagManager tagManager = SuperCombat.getInstance().getTagManager();
+    private final SuperCombat plugin = SuperCombat.getInstance();
 
     @EventHandler(priority = EventPriority.HIGHEST, ignoreCancelled = true)
     public void onDamage(EntityDamageByEntityEvent e) {
@@ -33,16 +33,16 @@ public class BukkitDamageListener implements Listener {
 
         if (!BukkitTagController.isPlayer(attackerEntity)) return;
 
-        tagManager.getTagMap().forEach((player, tag) -> {
+        plugin.getTagManager().getTagMap().forEach((player, tag) -> {
             Bukkit.broadcastMessage(tag.getUserName() + " : " + tag.getDuration());
         });
 
         Player attacker = (Player) attackerEntity;
-        tagManager.tagPlayer(BukkitTagController.controlPlayer(attacker, defenderEntity, TagReason.ATTACKER));
+        plugin.getTagManager().tagPlayer(BukkitTagController.controlPlayer(attacker, defenderEntity, TagReason.ATTACKER));
 
         if (defenderEntity instanceof Player) {
             Player defender = (Player) defenderEntity;
-            tagManager.tagPlayer(BukkitTagController.controlPlayer(defender, attacker, TagReason.DEFENDER));
+            plugin.getTagManager().tagPlayer(BukkitTagController.controlPlayer(defender, attacker, TagReason.DEFENDER));
         }
 
     }
@@ -57,16 +57,16 @@ public class BukkitDamageListener implements Listener {
         if (!(defenderEntity instanceof LivingEntity)) return;
         if (!BukkitTagController.isPlayer(attackerEntity) || BukkitTagController.isNPC(attackerEntity)) return;
 
-        tagManager.getTagMap().forEach((player, tag) -> {
+        plugin.getTagManager(.getTagMap().forEach((player, tag) -> {
             Bukkit.broadcastMessage(tag.getUserName() + " : " + tag.getDuration());
         });
 
         Player attacker = (Player) attackerEntity;
-        tagManager.tagPlayer(BukkitTagController.controlPlayer(attacker, defenderEntity, TagReason.ATTACKER));
+        plugin.getTagManager(.tagPlayer(BukkitTagController.controlPlayer(attacker, defenderEntity, TagReason.ATTACKER));
 
         if (defenderEntity instanceof Player) {
             Player defender = (Player) defenderEntity;
-            tagManager.tagPlayer(BukkitTagController.controlPlayer(defender, attacker, TagReason.DEFENDER));
+            plugin.getTagManager(.tagPlayer(BukkitTagController.controlPlayer(defender, attacker, TagReason.DEFENDER));
         }
 
     }*/

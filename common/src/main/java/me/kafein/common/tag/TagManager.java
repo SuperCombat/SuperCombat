@@ -29,7 +29,7 @@ public class TagManager {
 
     public void unTagPlayer(UUID playerUUID, UntagReason reason) {
         if (!tagMap.containsKey(playerUUID)) return;
-        if (!ListenerChecker.checkUntag(tagMap.get(playerUUID), reason)) return;
+        if (ListenerChecker.checkUntag(tagMap.get(playerUUID), reason)) return;
         tagMap.remove(playerUUID);
     }
 

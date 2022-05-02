@@ -15,7 +15,7 @@ import java.util.UUID;
 
 public class BukkitPlayerListener implements Listener {
 
-    private final TagManager tagManager = SuperCombatPlugin.getInstance().getTagManager();
+    private final SuperCombatPlugin plugin = SuperCombatPlugin.getInstance();
 
     @EventHandler (priority = EventPriority.HIGHEST, ignoreCancelled = true)
     public void onQuit(PlayerQuitEvent event) {
@@ -23,9 +23,9 @@ public class BukkitPlayerListener implements Listener {
         Player player = event.getPlayer();
         UUID playerUUID = player.getUniqueId();
 
-        if (!tagManager.isTagged(playerUUID)) return;
+        if (!plugin.getTagManager().isTagged(playerUUID)) return;
 
-        tagManager.unTagPlayer(playerUUID, UntagReason.QUIT);
+        plugin.getTagManager().unTagPlayer(playerUUID, UntagReason.QUIT);
         if (ConfigKeys.Settings.QUIT_PUNISHMENT.getValue()) player.setHealth(0.0D);
 
     }
@@ -36,9 +36,9 @@ public class BukkitPlayerListener implements Listener {
         Player player = event.getPlayer();
         UUID playerUUID = player.getUniqueId();
 
-        if (!tagManager.isTagged(playerUUID)) return;
+        if (!plugin.getTagManager().isTagged(playerUUID)) return;
 
-        tagManager.unTagPlayer(playerUUID, UntagReason.KICK);
+        plugin.getTagManager().unTagPlayer(playerUUID, UntagReason.KICK);
         if (ConfigKeys.Settings.KICK_PUNISHMENT.getValue()) player.setHealth(0.0D);
 
     }

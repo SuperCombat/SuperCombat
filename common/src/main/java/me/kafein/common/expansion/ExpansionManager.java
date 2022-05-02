@@ -12,8 +12,7 @@ public class ExpansionManager {
 
     @Getter private final Map<String, Expansion> expansions = new ConcurrentHashMap<>();
 
-    @SneakyThrows
-    public ExpansionManager load(String dataFolder) {
+    public ExpansionManager loadFromDataFolder(String dataFolder) {
         File file = new File(dataFolder + "/expansion");
         if (!file.exists()) {
             file.mkdirs();
@@ -23,24 +22,42 @@ public class ExpansionManager {
         File[] files = file.listFiles();
         if (files == null) return this;
 
-        for (File f : files) {
-            if (f.isDirectory()) continue;
-            if (!f.getName().endsWith(".jar")) continue;
-            ExpansionLoader expansionLoader = new ExpansionLoader(f, Expansion.class.getClassLoader());
-            Class<?> clazz = expansionLoader.findClass(Expansion.class);
-            if (clazz == null) continue;
-            Expansion expansion = (Expansion) clazz.newInstance();
-            expansion.onEnable();
-            expansions.put(expansion.getName(), expansion);
+        try {
+            for (File f : files) {
+                if (f.isDirectory()) continue;
+                if (!f.getName().endsWith(".jar")) continue;
+                ExpansionLoader expansionLoader = new ExpansionLoader(f, Expansion.class.getClassLoader());
+                Class<?> clazz = expansionLoader.findClass(Expansion.class);
+                if (clazz == null) continue;
+                Expansion expansion = (Expansion) clazz.newInstance();
+                expansion.onEnable();
+                expansions.put(expansion.getName(), expansion);
+            }
+        }catch (Exception e) {
+            e.printStackTrace();
         }
         return this;
     }
 
+    public void enableAll() {
+        expansions.values().forEach(Expansion::onEnable);
+    }
+
+    public void disableAll() {
+        expansions.values().forEach(Expansion::onDisable);
+    }
+
+    public void reloadConfigAll() {
+        expansions.values().forEach(Expansion::onReloadConfig);
+    }
+
     public void register(Expansion expansion) {
+        expansion.onEnable();
         expansions.put(expansion.getName(), expansion);
     }
 
     public void unregister(Expansion expansion) {
+        expansion.onDisable();
         expansions.remove(expansion.getName());
     }
 

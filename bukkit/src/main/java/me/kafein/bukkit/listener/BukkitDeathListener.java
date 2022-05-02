@@ -19,7 +19,7 @@ import java.util.UUID;
 
 public class BukkitDeathListener implements Listener {
 
-    private final TagManager tagManager = SuperCombat.getInstance().getTagManager();
+    private final SuperCombat plugin = SuperCombat.getInstance();
 
     @EventHandler (priority = EventPriority.HIGHEST, ignoreCancelled = true)
     public void onDeath(PlayerDeathEvent event) {
@@ -28,12 +28,12 @@ public class BukkitDeathListener implements Listener {
         if (player.hasMetadata("NPC")) return;
         UUID uuid = player.getUniqueId();
 
-        Optional<Tag> optionalTag = tagManager.getTag(uuid);
+        Optional<Tag> optionalTag = plugin.getTagManager().getTag(uuid);
         if (!optionalTag.isPresent()) return;
         Tag tag = optionalTag.get();
 
-        if (ConfigKeys.Settings.DEATH_UNTAGGING_ENEMY.getValue()) tagManager.unTagPlayer(tag.getOtherUserUUID(), UntagReason.ENEMY_DEATH);
-        if (ConfigKeys.Settings.DEATH_UNTAGGING_SELF.getValue()) tagManager.unTagPlayer(uuid, UntagReason.SELF_DEATH);
+        if (ConfigKeys.Settings.DEATH_UNTAGGING_ENEMY.getValue()) plugin.getTagManager().unTagPlayer(tag.getOtherUserUUID(), UntagReason.ENEMY_DEATH);
+        if (ConfigKeys.Settings.DEATH_UNTAGGING_SELF.getValue()) plugin.getTagManager().unTagPlayer(uuid, UntagReason.SELF_DEATH);
 
     }
 
@@ -44,7 +44,7 @@ public class BukkitDeathListener implements Listener {
         if (attacker == null) return;
         if (!BukkitTagController.isPlayer(attacker)) return;
 
-        if (ConfigKeys.Settings.DEATH_UNTAGGING_ENEMY.getValue()) tagManager.unTagPlayer(attacker.getUniqueId(), UntagReason.ENEMY_DEATH);
+        if (ConfigKeys.Settings.DEATH_UNTAGGING_ENEMY.getValue()) plugin.getTagManager().unTagPlayer(attacker.getUniqueId(), UntagReason.ENEMY_DEATH);
 
     }
 
