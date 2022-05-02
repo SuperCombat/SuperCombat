@@ -1,19 +1,15 @@
 package me.kafein.common.expansion;
 
 import lombok.SneakyThrows;
-import org.checkerframework.checker.nullness.qual.Nullable;
+import org.jetbrains.annotations.Nullable;
 
 import java.io.File;
-import java.io.IOException;
-import java.lang.reflect.Method;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.net.URLClassLoader;
 import java.util.ArrayList;
-import java.util.Enumeration;
 import java.util.List;
 import java.util.jar.JarEntry;
-import java.util.jar.JarFile;
 import java.util.jar.JarInputStream;
 
 public class ExpansionLoader extends URLClassLoader {
@@ -30,24 +26,22 @@ public class ExpansionLoader extends URLClassLoader {
         final List<String> matches = new ArrayList<>();
         final List<Class<? extends T>> classes = new ArrayList<>();
 
-        try (final JarInputStream stream = new JarInputStream(jar.openStream())) {
+        try (JarInputStream stream = new JarInputStream(jar.openStream())) {
             JarEntry entry;
             while ((entry = stream.getNextJarEntry()) != null) {
                 final String name = entry.getName();
                 if (name.isEmpty() || !name.endsWith(".class")) {
                     continue;
                 }
-
                 matches.add(name.substring(0, name.lastIndexOf('.')).replace('/', '.'));
             }
-
             for (final String match : matches) {
                 try {
                     final Class<?> loaded = loadClass(match);
                     if (clazz.isAssignableFrom(loaded)) {
                         classes.add(loaded.asSubclass(clazz));
                     }
-                } catch (final NoClassDefFoundError ignored) {
+                } catch (NoClassDefFoundError e) {
                 }
             }
         }
