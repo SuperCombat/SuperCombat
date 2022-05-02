@@ -19,8 +19,4 @@ subprojects {
         implementation 'org.spongepowered:configurate-yaml:3.7.2'
     }
 
-    test {
-        useJUnitPlatform()
-    }
-
 }
