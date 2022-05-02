@@ -9,20 +9,14 @@ import lombok.RequiredArgsConstructor;
 import me.kafein.bukkit.SuperCombatPlugin;
 import me.kafein.bukkit.util.ColorSerializer;
 import me.kafein.common.config.ConfigKeys;
-import me.kafein.common.config.ConfigLoader;
-import me.kafein.common.tag.TagManager;
 import org.bukkit.command.CommandSender;
-import org.bukkit.plugin.Plugin;
 
 @CommandAlias("supercombattag|supercombat|combattag|sct|sc|ct")
 @Description("SuperCombat main command.")
 @RequiredArgsConstructor
 public class BukkitCombatCMD extends BaseCommand {
 
-    private final ConfigLoader configLoader = SuperCombatPlugin.getInstance().getConfigLoader();
-    private final TagManager tagManager = SuperCombatPlugin.getInstance().getTagManager();
-
-    private final Plugin plugin;
+    private final SuperCombatPlugin plugin = SuperCombatPlugin.getInstance();
 
     @HelpCommand
     @Description("Shows the help message.")
@@ -39,10 +33,11 @@ public class BukkitCombatCMD extends BaseCommand {
             sender.sendMessage(ColorSerializer.serialize(ConfigKeys.Language.NO_PERMISSION.getValue()));
             return;
         }
-        configLoader
+        plugin.getConfigLoader()
                 .loadConfigs(plugin.getDataFolder().getAbsolutePath())
                 .loadFields();
         sender.sendMessage("§aCombatTag config reloaded.");
+        plugin.getExpansionManager().reloadConfigAll();
     }
 
     @Subcommand("list")
@@ -52,7 +47,7 @@ public class BukkitCombatCMD extends BaseCommand {
             sender.sendMessage(ColorSerializer.serialize(ConfigKeys.Language.NO_PERMISSION.getValue()));
             return;
         }
-        tagManager.getTagMap().values().forEach(tag -> {
+        plugin.getTagManager().getTagMap().values().forEach(tag -> {
             sender.sendMessage(tag.getUserName() + " : " + tag.getDuration());
         });
     }
