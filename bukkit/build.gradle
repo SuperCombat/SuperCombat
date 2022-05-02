@@ -3,13 +3,13 @@ plugins {
 }
 
 repositories {
-    mavenCentral()
     maven { url = 'https://hub.spigotmc.org/nexus/content/repositories/snapshots/' }
     maven { url = "https://repo.aikar.co/content/groups/aikar/" }
 }
 
 dependencies {
-    implementation project(':common')
+    compileOnly project(':common')
+    implementation group: 'org.jetbrains', name: 'annotations', version: '23.0.0'
     compileOnly 'org.spigotmc:spigot-api:1.18.2-R0.1-SNAPSHOT'
     implementation "co.aikar:acf-bukkit:0.5.1-SNAPSHOT"
 }
