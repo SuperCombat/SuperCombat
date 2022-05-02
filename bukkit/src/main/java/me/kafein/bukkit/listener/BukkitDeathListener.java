@@ -40,11 +40,14 @@ public class BukkitDeathListener implements Listener {
     @EventHandler (priority = EventPriority.HIGHEST, ignoreCancelled = true)
     public void onDeath(EntityDeathEvent event) {
 
-        Player attacker = event.getEntity().getKiller();
-        if (attacker == null) return;
-        if (!BukkitTagController.isPlayer(attacker)) return;
+        Entity entity = event.getEntity();
+        UUID uuid = entity.getUniqueId();
 
-        if (ConfigKeys.Settings.DEATH_UNTAGGING_ENEMY.getValue()) tagManager.unTagPlayer(attacker.getUniqueId(), UntagReason.ENEMY_DEATH);
+        Optional<Tag> optionalTag = tagManager.getTag(uuid);
+        if (!optionalTag.isPresent()) return;
+        Tag tag = optionalTag.get();
+
+        if (ConfigKeys.Settings.DEATH_UNTAGGING_ENEMY.getValue()) tagManager.unTagPlayer(tag.getOtherUserUUID(), UntagReason.ENEMY_DEATH);
 
     }
 

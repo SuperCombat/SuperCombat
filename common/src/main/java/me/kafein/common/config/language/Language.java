@@ -1,6 +1,6 @@
 package me.kafein.common.config.language;
 
-import org.jetbrains.annotations.Nullable;
+import org.checkerframework.checker.nullness.qual.Nullable;
 
 public enum Language {
     EN, TR;
