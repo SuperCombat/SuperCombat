@@ -1,8 +1,9 @@
 subprojects {
 
     apply plugin: 'java'
+    apply plugin: 'maven-publish'
 
-    group 'me.kafein'
+    group 'com.github.SuperCombat'
     version '1.0.0'
 
     tasks.withType(JavaCompile) {
