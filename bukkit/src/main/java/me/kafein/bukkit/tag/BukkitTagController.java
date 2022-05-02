@@ -7,14 +7,14 @@ import me.kafein.common.tag.TagReason;
 import org.bukkit.entity.Animals;
 import org.bukkit.entity.Entity;
 import org.bukkit.entity.Player;
-import org.jetbrains.annotations.Nullable;
+import org.checkerframework.checker.nullness.qual.Nullable;
 
 public class BukkitTagController {
 
     @Nullable
     public static Tag controlPlayer(Player player, Entity enemy, TagReason tagReason) {
 
-        if ((!isPlayer(enemy) && !ConfigKeys.Settings.MOB_TAGGING.getValue()) || enemy instanceof Animals) {
+        if ((!isPlayer(enemy) && !ConfigKeys.Settings.MOB_TAGGING.getValue()) || enemy instanceof Animals || isNPC(enemy)) {
             return null;
         }
 
@@ -30,6 +30,10 @@ public class BukkitTagController {
 
     public static boolean isPlayer(Entity entity) {
         return entity instanceof Player;
+    }
+
+    public static boolean isNPC(Entity entity) {
+        return entity.hasMetadata("NPC");
     }
 
 }
