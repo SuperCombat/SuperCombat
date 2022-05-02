@@ -1,9 +1,9 @@
 package me.kafein.common;
 
-import lombok.NonNull;
 import me.kafein.common.config.ConfigLoader;
 import me.kafein.common.expansion.ExpansionManager;
 import me.kafein.common.tag.TagManager;
+import org.jetbrains.annotations.NotNull;
 
 public interface SuperCombat {
 
@@ -11,10 +11,10 @@ public interface SuperCombat {
         return SuperCombatProvider.getSuperCombat();
     }
 
-    @NonNull ConfigLoader getConfigLoader();
+    @NotNull ConfigLoader getConfigLoader();
 
-    @NonNull TagManager getTagManager();
+    @NotNull TagManager getTagManager();
 
-    @NonNull ExpansionManager getExpansionManager();
+    @NotNull ExpansionManager getExpansionManager();
 
 }

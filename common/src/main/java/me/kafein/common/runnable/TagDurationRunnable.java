@@ -1,7 +1,7 @@
 package me.kafein.common.runnable;
 
 import me.kafein.common.SuperCombat;
-import me.kafein.common.event.TagEventChecker;
+import me.kafein.common.listener.ListenerChecker;
 import me.kafein.common.tag.Tag;
 import me.kafein.common.tag.TagManager;
 
@@ -18,13 +18,12 @@ public class TagDurationRunnable implements Runnable {
         while (tagIterator.hasNext()) {
 
             Tag tag = tagIterator.next();
-            if (tag.getDuration() <= 0) {
+            if (tag.getDuration() <= 0 || !ListenerChecker.updateTag(tag)) {
                 tagIterator.remove();
                 continue;
             }
 
             tag.removeDuration(1);
-            TagEventChecker.updateTimer(tag);
 
         }
 

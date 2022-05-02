@@ -26,9 +26,12 @@ public class BukkitDamageListener implements Listener {
         if (attackerEntity instanceof Projectile) {
             Projectile projectile = (Projectile) attackerEntity;
             attackerEntity = (Entity) projectile.getShooter();
+            if (attackerEntity == null) return;
         }
 
-        if (!BukkitTagController.isPlayer(attackerEntity) || BukkitTagController.isNPC(attackerEntity)) return;
+        if (attackerEntity.equals(defenderEntity)) return;
+
+        if (!BukkitTagController.isPlayer(attackerEntity)) return;
 
         tagManager.getTagMap().forEach((player, tag) -> {
             Bukkit.broadcastMessage(tag.getUserName() + " : " + tag.getDuration());
