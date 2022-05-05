@@ -1,6 +1,5 @@
 package me.kafein.common.expansion;
 
-import lombok.SneakyThrows;
 import org.jetbrains.annotations.Nullable;
 
 import java.io.File;
@@ -41,7 +40,7 @@ public class ExpansionLoader extends URLClassLoader {
                     if (clazz.isAssignableFrom(loaded)) {
                         classes.add(loaded.asSubclass(clazz));
                     }
-                } catch (NoClassDefFoundError e) {
+                } catch (NoClassDefFoundError ignored) {
                 }
             }
         }

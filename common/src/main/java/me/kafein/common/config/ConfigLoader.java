@@ -9,6 +9,7 @@ import org.yaml.snakeyaml.DumperOptions;
 
 import java.io.*;
 import java.lang.reflect.Field;
+import java.nio.file.Files;
 import java.util.HashMap;
 import java.util.Locale;
 import java.util.Map;
@@ -41,7 +42,7 @@ public class ConfigLoader {
                 if (!file.exists()) {
                     file.getParentFile().mkdirs();
                     file.createNewFile();
-                    OutputStream out = new FileOutputStream(file);
+                    OutputStream out = Files.newOutputStream(file.toPath());
                     byte[] buf = new byte[1024];
                     int len;
                     while ((len = inputStream.read(buf)) > 0) {

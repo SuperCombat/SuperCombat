@@ -11,7 +11,7 @@ public class ListenerChecker {
 
     public static boolean updateTag(Tag tag) {
         UpdateTagEvent event = new UpdateTagEvent(tag, false);
-        for (Listener listener : ListenerRegisteror.getListeners()) {
+        for (Listener listener : ListenerRegistrar.getListeners()) {
             listener.onUpdateTag(event);
             if (event.isCancelled()) return true;
         }
@@ -20,7 +20,7 @@ public class ListenerChecker {
 
     public static boolean checkTag(Tag tag) {
         TagEvent event = new TagEvent(tag, false);
-        for (Listener listener : ListenerRegisteror.getListeners()) {
+        for (Listener listener : ListenerRegistrar.getListeners()) {
             listener.onTag(event);
             if (event.isCancelled()) return true;
         }
@@ -29,7 +29,7 @@ public class ListenerChecker {
 
     public static boolean checkRetag(Tag oldTag, Tag newTag) {
         RetagEvent event = new RetagEvent(oldTag, newTag, false);
-        for (Listener listener : ListenerRegisteror.getListeners()) {
+        for (Listener listener : ListenerRegistrar.getListeners()) {
             listener.onRetag(event);
             if (event.isCancelled()) return true;
         }
@@ -38,7 +38,7 @@ public class ListenerChecker {
 
     public static boolean checkUntag(Tag tag, UntagReason reason) {
         UntagEvent event = new UntagEvent(tag, reason, false);
-        for (Listener listener : ListenerRegisteror.getListeners()) {
+        for (Listener listener : ListenerRegistrar.getListeners()) {
             listener.onUntag(event);
             if (event.isCancelled()) return true;
         }

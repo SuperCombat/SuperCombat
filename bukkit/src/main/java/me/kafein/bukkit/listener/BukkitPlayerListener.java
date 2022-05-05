@@ -2,7 +2,6 @@ package me.kafein.bukkit.listener;
 
 import me.kafein.bukkit.SuperCombatPlugin;
 import me.kafein.common.config.ConfigKeys;
-import me.kafein.common.tag.TagManager;
 import me.kafein.common.tag.untag.UntagReason;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;

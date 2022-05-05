@@ -4,9 +4,11 @@ import com.google.common.collect.ImmutableList;
 
 import java.util.List;
 
-public class ConfigKeys {
+public final class ConfigKeys {
+    private ConfigKeys() {}
 
-    public static class Settings {
+    public static final class Settings {
+        private Settings() {}
 
         public static final ConfigKey<String> LANGUAGE = new ConfigKey<>("en", ConfigType.SETTINGS, "language");
 
@@ -25,7 +27,8 @@ public class ConfigKeys {
 
     }
 
-    public static class Language {
+    public static final class Language {
+        private Language() {}
 
         public static final ConfigKey<String> PREFIX = new ConfigKey<>("&8[&6SuperCombatTag&8]&r ", ConfigType.LANGUAGE, "prefix");
 

@@ -5,9 +5,9 @@ import lombok.Getter;
 import java.util.HashSet;
 import java.util.Set;
 
-public class ListenerRegisteror {
+public class ListenerRegistrar {
 
-    @Getter private final static Set<Listener> listeners = new HashSet<>();
+    @Getter private static final Set<Listener> listeners = new HashSet<>();
 
     public static void register(Listener listener) {
         listeners.add(listener);

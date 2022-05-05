@@ -13,7 +13,6 @@ public class BukkitTagController {
 
     @Nullable
     public static Tag controlPlayer(Player player, Entity enemy, TagReason tagReason) {
-
         if ((!isPlayer(enemy) && !ConfigKeys.Settings.MOB_TAGGING.getValue()) || enemy instanceof Animals) {
             return null;
         }
