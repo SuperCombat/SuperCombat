@@ -8,7 +8,7 @@ import me.kafein.common.tag.Tag;
 
 public class UpdateTagEvent implements Event {
 
-    @Getter final private Tag tag;
+    @Getter private final Tag tag;
     @Getter @Setter private boolean cancelled;
 
     /**

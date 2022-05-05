@@ -6,7 +6,7 @@ public interface Expansion {
 
     void onDisable();
 
-    void onReloadConfig();
+    void onConfigReload();
 
     String getName();
 

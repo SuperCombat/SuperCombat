@@ -3,8 +3,8 @@ subprojects {
     apply plugin: 'java'
     apply plugin: 'maven-publish'
 
-    group 'com.github.SuperCombat'
-    version '1.0.0'
+    group = 'com.github.SuperCombat'
+    version = '1.0.0'
 
     tasks.withType(JavaCompile) {
         options.encoding = 'UTF-8'
@@ -17,8 +17,16 @@ subprojects {
     dependencies {
         compileOnly 'org.projectlombok:lombok:1.18.24'
         annotationProcessor 'org.projectlombok:lombok:1.18.24'
+
         implementation 'org.spongepowered:configurate-yaml:3.7.2'
-        implementation group: 'org.jetbrains', name: 'annotations', version: '23.0.0'
+
+        compileOnly 'org.jetbrains:annotations:23.0.0'
+    }
+
+    processResources {
+        filesMatching("plugin.yml") {
+            expand 'version': project.version
+        }
     }
 
 }

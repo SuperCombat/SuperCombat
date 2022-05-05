@@ -4,9 +4,11 @@ import com.google.common.collect.ImmutableList;
 
 import java.util.List;
 
-public class ConfigKeys {
+public final class ConfigKeys {
+    private ConfigKeys() {}
 
-    public static class Settings {
+    public static final class Settings {
+        private Settings() {}
 
         public static final ConfigKey<String> LANGUAGE = new ConfigKey<>("en", ConfigType.SETTINGS, "language");
 
@@ -23,9 +25,11 @@ public class ConfigKeys {
         public static final ConfigKey<Boolean> DEATH_UNTAGGING_SELF = new ConfigKey<>(true, ConfigType.SETTINGS, "death-untagging", "self");
         public static final ConfigKey<Boolean> DEATH_UNTAGGING_ENEMY = new ConfigKey<>(true, ConfigType.SETTINGS, "death-untagging", "enemy");
 
+        public static final ConfigKey<Boolean> DISABLE_TELEPORT = new ConfigKey<>(false, ConfigType.SETTINGS, "disable-teleport");
     }
 
-    public static class Language {
+    public static final class Language {
+        private Language() {}
 
         public static final ConfigKey<String> PREFIX = new ConfigKey<>("&8[&6SuperCombatTag&8]&r ", ConfigType.LANGUAGE, "prefix");
 

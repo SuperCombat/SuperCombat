@@ -2,7 +2,6 @@ package me.kafein.bukkit.listener;
 
 import me.kafein.bukkit.SuperCombatPlugin;
 import me.kafein.common.config.ConfigKeys;
-import me.kafein.common.tag.TagManager;
 import me.kafein.common.tag.untag.UntagReason;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
@@ -13,7 +12,7 @@ import org.bukkit.event.player.PlayerQuitEvent;
 
 import java.util.UUID;
 
-public class BukkitPlayerListener implements Listener {
+public class BukkitPunishmentListener implements Listener {
 
     private final SuperCombatPlugin plugin = SuperCombatPlugin.getInstance();
 

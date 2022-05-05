@@ -8,8 +8,8 @@ import me.kafein.common.tag.Tag;
 
 public class RetagEvent implements Event {
 
-    @Getter final private Tag oldTag;
-    @Getter final private Tag newTag;
+    @Getter private final Tag oldTag;
+    @Getter private final Tag newTag;
     @Getter @Setter
     private boolean cancelled;
 

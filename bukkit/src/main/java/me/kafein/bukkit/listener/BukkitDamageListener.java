@@ -15,7 +15,6 @@ public class BukkitDamageListener implements Listener {
 
     @EventHandler(priority = EventPriority.HIGHEST, ignoreCancelled = true)
     public void onDamage(EntityDamageByEntityEvent e) {
-
         Entity defenderEntity = e.getEntity();
         Entity attackerEntity = e.getDamager();
 

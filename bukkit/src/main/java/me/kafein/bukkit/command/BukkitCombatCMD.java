@@ -5,7 +5,6 @@ import co.aikar.commands.annotation.CommandAlias;
 import co.aikar.commands.annotation.Description;
 import co.aikar.commands.annotation.HelpCommand;
 import co.aikar.commands.annotation.Subcommand;
-import lombok.RequiredArgsConstructor;
 import me.kafein.bukkit.SuperCombatPlugin;
 import me.kafein.bukkit.util.ColorSerializer;
 import me.kafein.common.config.ConfigKeys;
@@ -13,7 +12,7 @@ import org.bukkit.command.CommandSender;
 
 @CommandAlias("supercombattag|supercombat|combattag|sct|sc|ct")
 @Description("SuperCombat main command.")
-@RequiredArgsConstructor
+@SuppressWarnings("unused")
 public class BukkitCombatCMD extends BaseCommand {
 
     private final SuperCombatPlugin plugin = SuperCombatPlugin.getInstance();

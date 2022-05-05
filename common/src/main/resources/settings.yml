@@ -21,3 +21,7 @@ settings:
     self: true
     #default: false
     enemy: false
+
+  #Disable teleport when player is tagged
+  #default: false
+  disable-teleport: false

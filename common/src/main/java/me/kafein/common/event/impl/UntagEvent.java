@@ -9,8 +9,8 @@ import me.kafein.common.tag.untag.UntagReason;
 
 public class UntagEvent implements Event {
 
-    @Getter final private Tag tag;
-    @Getter final private UntagReason reason;
+    @Getter private final Tag tag;
+    @Getter private final UntagReason reason;
     @Getter @Setter
     private boolean cancelled;
 

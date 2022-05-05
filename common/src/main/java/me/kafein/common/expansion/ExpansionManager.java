@@ -1,7 +1,6 @@
 package me.kafein.common.expansion;
 
 import lombok.Getter;
-import lombok.SneakyThrows;
 
 import java.io.File;
 import java.util.Map;
@@ -32,6 +31,7 @@ public class ExpansionManager {
                 Expansion expansion = (Expansion) clazz.newInstance();
                 expansion.onEnable();
                 expansions.put(expansion.getName(), expansion);
+                expansionLoader.close();
             }
         }catch (Exception e) {
             e.printStackTrace();
@@ -48,7 +48,7 @@ public class ExpansionManager {
     }
 
     public void reloadConfigAll() {
-        expansions.values().forEach(Expansion::onReloadConfig);
+        expansions.values().forEach(Expansion::onConfigReload);
     }
 
     public void register(Expansion expansion) {
