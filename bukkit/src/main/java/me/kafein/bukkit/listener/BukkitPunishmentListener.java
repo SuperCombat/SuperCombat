@@ -12,7 +12,7 @@ import org.bukkit.event.player.PlayerQuitEvent;
 
 import java.util.UUID;
 
-public class BukkitPlayerListener implements Listener {
+public class BukkitPunishmentListener implements Listener {
 
     private final SuperCombatPlugin plugin = SuperCombatPlugin.getInstance();
 
