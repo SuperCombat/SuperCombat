@@ -25,6 +25,7 @@ public final class ConfigKeys {
         public static final ConfigKey<Boolean> DEATH_UNTAGGING_SELF = new ConfigKey<>(true, ConfigType.SETTINGS, "death-untagging", "self");
         public static final ConfigKey<Boolean> DEATH_UNTAGGING_ENEMY = new ConfigKey<>(true, ConfigType.SETTINGS, "death-untagging", "enemy");
 
+        public static final ConfigKey<Boolean> DISABLE_TELEPORT = new ConfigKey<>(false, ConfigType.SETTINGS, "disable-teleport");
     }
 
     public static final class Language {

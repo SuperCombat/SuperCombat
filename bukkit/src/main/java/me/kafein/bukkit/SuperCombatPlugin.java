@@ -5,7 +5,8 @@ import lombok.Getter;
 import me.kafein.bukkit.command.BukkitCombatCMD;
 import me.kafein.bukkit.listener.BukkitDamageListener;
 import me.kafein.bukkit.listener.BukkitDeathListener;
-import me.kafein.bukkit.listener.BukkitPlayerListener;
+import me.kafein.bukkit.listener.BukkitProtectionListener;
+import me.kafein.bukkit.listener.BukkitPunishmentListener;
 import me.kafein.bukkit.listener.adapter.BukkitListenerAdapter;
 import me.kafein.common.SuperCombat;
 import me.kafein.common.SuperCombatProvider;
@@ -43,7 +44,11 @@ public final class SuperCombatPlugin extends JavaPlugin implements SuperCombat {
 
         new BukkitCommandManager(this).registerCommand(new BukkitCombatCMD());
 
-        BukkitListenerAdapter.register(this, BukkitDamageListener.class, BukkitDeathListener.class, BukkitPlayerListener.class);
+        BukkitListenerAdapter.register(this,
+                BukkitDamageListener.class,
+                BukkitDeathListener.class,
+                BukkitPunishmentListener.class,
+                BukkitProtectionListener.class);
 
         Bukkit.getScheduler().runTaskTimer(this, new TagDurationRunnable(), 20L, 20L);
 
