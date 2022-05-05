@@ -1,6 +1,6 @@
 subprojects {
 
-    apply plugin: 'java'
+    apply plugin: 'java-library'
     apply plugin: 'maven-publish'
 
     group = 'com.github.SuperCombat'
@@ -26,6 +26,17 @@ subprojects {
     processResources {
         filesMatching("plugin.yml") {
             expand 'version': project.version
+        }
+    }
+
+    publishing {
+        publications {
+        }
+        repositories {
+            maven {
+                name = "SuperCombat"
+                url = "https://github.com/SuperCombat/SuperCombat.git"
+            }
         }
     }
 
