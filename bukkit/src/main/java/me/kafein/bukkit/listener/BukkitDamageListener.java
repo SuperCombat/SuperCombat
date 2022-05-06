@@ -18,7 +18,8 @@ public class BukkitDamageListener implements Listener {
         Entity defenderEntity = e.getEntity();
         Entity attackerEntity = e.getDamager();
 
-        if (attackerEntity instanceof Projectile projectile) {
+        if (attackerEntity instanceof Projectile) {
+            Projectile projectile = (Projectile) attackerEntity;
             attackerEntity = (Entity) projectile.getShooter();
             if (attackerEntity == null) return;
         }
@@ -30,7 +31,8 @@ public class BukkitDamageListener implements Listener {
         Player attacker = (Player) attackerEntity;
         plugin.getTagManager().tagPlayer(BukkitTagController.controlPlayer(attacker, defenderEntity, TagReason.ATTACKER));
 
-        if (defenderEntity instanceof Player defender) {
+        if (defenderEntity instanceof Player) {
+            Player defender = (Player) defenderEntity;
             plugin.getTagManager().tagPlayer(BukkitTagController.controlPlayer(defender, attacker, TagReason.DEFENDER));
         }
 
