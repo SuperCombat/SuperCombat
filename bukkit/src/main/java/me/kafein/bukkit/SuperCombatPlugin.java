@@ -37,10 +37,7 @@ public final class SuperCombatPlugin extends JavaPlugin implements SuperCombat {
         SuperCombatProvider.setSuperCombat(this);
 
         configManager = new ConfigManager();
-        configManager.loadDefaultConfigs(
-                SuperCombat.class,
-                getDataFolder().getAbsolutePath(),
-                new ConfigType[]{ConfigType.LANGUAGE, ConfigType.SETTINGS});
+        configManager.loadDefaultConfigs(getDataFolder().getAbsolutePath());
         tagManager = new TagManager();
         expansionManager = new ExpansionManager()
                 .loadFromDataFolder(getDataFolder().getAbsolutePath());

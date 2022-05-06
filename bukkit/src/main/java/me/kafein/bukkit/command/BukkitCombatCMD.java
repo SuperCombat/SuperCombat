@@ -34,10 +34,8 @@ public class BukkitCombatCMD extends BaseCommand {
             sender.sendMessage(ColorSerializer.serialize(ConfigKeys.Language.NO_PERMISSION.getValue()));
             return;
         }
-        plugin.getConfigManager().loadDefaultConfigs(
-                SuperCombat.class,
-                plugin.getDataFolder().getAbsolutePath(),
-                new ConfigType[]{ConfigType.LANGUAGE, ConfigType.SETTINGS});        sender.sendMessage("§aCombatTag config reloaded.");
+        plugin.getConfigManager().loadDefaultConfigs(plugin.getDataFolder().getAbsolutePath());
+        sender.sendMessage("§aCombatTag config reloaded.");
         plugin.getExpansionManager().reloadConfigAll();
     }
 
