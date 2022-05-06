@@ -18,8 +18,7 @@ public class BukkitDamageListener implements Listener {
         Entity defenderEntity = e.getEntity();
         Entity attackerEntity = e.getDamager();
 
-        if (attackerEntity instanceof Projectile) {
-            Projectile projectile = (Projectile) attackerEntity;
+        if (attackerEntity instanceof Projectile projectile) {
             attackerEntity = (Entity) projectile.getShooter();
             if (attackerEntity == null) return;
         }
