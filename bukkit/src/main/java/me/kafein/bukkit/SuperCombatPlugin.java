@@ -10,7 +10,7 @@ import me.kafein.bukkit.listener.BukkitPunishmentListener;
 import me.kafein.bukkit.listener.adapter.BukkitListenerAdapter;
 import me.kafein.common.SuperCombat;
 import me.kafein.common.SuperCombatProvider;
-import me.kafein.common.config.ConfigLoader;
+import me.kafein.common.config.ConfigManager;
 import me.kafein.common.expansion.ExpansionManager;
 import me.kafein.common.runnable.TagDurationRunnable;
 import me.kafein.common.tag.TagManager;
@@ -23,7 +23,7 @@ public final class SuperCombatPlugin extends JavaPlugin implements SuperCombat {
     private static SuperCombatPlugin instance;
 
     @Getter
-    private ConfigLoader configLoader;
+    private ConfigManager configManager;
     @Getter
     private TagManager tagManager;
     @Getter
@@ -35,9 +35,8 @@ public final class SuperCombatPlugin extends JavaPlugin implements SuperCombat {
         instance = this;
         SuperCombatProvider.setSuperCombat(this);
 
-        configLoader = new ConfigLoader()
-                .loadConfigs(getDataFolder().getAbsolutePath())
-                .loadFields();
+        configManager = new ConfigManager();
+        configManager.loadDefaultConfigs(getDataFolder().getAbsolutePath());
         tagManager = new TagManager();
         expansionManager = new ExpansionManager()
                 .loadFromDataFolder(getDataFolder().getAbsolutePath());
