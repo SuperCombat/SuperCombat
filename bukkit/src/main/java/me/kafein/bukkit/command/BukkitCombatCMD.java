@@ -8,6 +8,7 @@ import co.aikar.commands.annotation.Subcommand;
 import me.kafein.bukkit.SuperCombatPlugin;
 import me.kafein.bukkit.util.ColorSerializer;
 import me.kafein.common.config.ConfigKeys;
+import me.kafein.common.config.ConfigType;
 import org.bukkit.command.CommandSender;
 
 @CommandAlias("supercombattag|supercombat|combattag|sct|sc|ct")
@@ -32,7 +33,7 @@ public class BukkitCombatCMD extends BaseCommand {
             sender.sendMessage(ColorSerializer.serialize(ConfigKeys.Language.NO_PERMISSION.getValue()));
             return;
         }
-        plugin.getConfigManager().loadDefaultConfigs(plugin.getDataFolder().getAbsolutePath());
+        plugin.getConfigManager().loadDefaultConfigs(plugin.getDataFolder().getAbsolutePath(), new ConfigType[]{ConfigType.LANGUAGE, ConfigType.SETTINGS});
         sender.sendMessage("§aCombatTag config reloaded.");
         plugin.getExpansionManager().reloadConfigAll();
     }
