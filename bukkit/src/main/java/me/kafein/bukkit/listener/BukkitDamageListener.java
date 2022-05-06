@@ -30,8 +30,7 @@ public class BukkitDamageListener implements Listener {
         Player attacker = (Player) attackerEntity;
         plugin.getTagManager().tagPlayer(BukkitTagController.controlPlayer(attacker, defenderEntity, TagReason.ATTACKER));
 
-        if (defenderEntity instanceof Player) {
-            Player defender = (Player) defenderEntity;
+        if (defenderEntity instanceof Player defender) {
             plugin.getTagManager().tagPlayer(BukkitTagController.controlPlayer(defender, attacker, TagReason.DEFENDER));
         }
 
