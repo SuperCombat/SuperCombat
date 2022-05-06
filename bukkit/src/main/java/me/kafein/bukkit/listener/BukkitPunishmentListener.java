@@ -3,6 +3,7 @@ package me.kafein.bukkit.listener;
 import me.kafein.bukkit.SuperCombatPlugin;
 import me.kafein.common.config.ConfigKeys;
 import me.kafein.common.tag.untag.UntagReason;
+import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.EventPriority;
@@ -27,6 +28,7 @@ public class BukkitPunishmentListener implements Listener {
         plugin.getTagManager().unTagPlayer(playerUUID, UntagReason.QUIT);
         if (ConfigKeys.Settings.QUIT_PUNISHMENT.getValue()) player.setHealth(0.0D);
 
+        executePunishmentCommands(player);
     }
 
     @EventHandler (priority = EventPriority.HIGHEST, ignoreCancelled = true)
@@ -40,6 +42,14 @@ public class BukkitPunishmentListener implements Listener {
         plugin.getTagManager().unTagPlayer(playerUUID, UntagReason.KICK);
         if (ConfigKeys.Settings.KICK_PUNISHMENT.getValue()) player.setHealth(0.0D);
 
+        executePunishmentCommands(player);
+    }
+
+    private void executePunishmentCommands(Player player) {
+        ConfigKeys.Settings.PUNISHMENT_COMMANDS.getValue().forEach(command -> {
+            command = command.replace("%player%", player.getName());
+            Bukkit.dispatchCommand(Bukkit.getConsoleSender(), command);
+        });
     }
 
 }
