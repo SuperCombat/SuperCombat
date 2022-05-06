@@ -25,3 +25,7 @@ settings:
   #Disable teleport when player is tagged
   #default: false
   disable-teleport: false
+
+  command-whitelist:
+    enabled: false
+    commands: []
