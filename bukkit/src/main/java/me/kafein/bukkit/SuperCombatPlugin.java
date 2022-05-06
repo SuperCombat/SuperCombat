@@ -64,10 +64,10 @@ public final class SuperCombatPlugin extends JavaPlugin implements SuperCombat {
     }
 
     public void loadConfigs() {
-        configManager.loadConfig("settings", getDataFolder().getAbsolutePath() + "/settings.yml", SuperCombat.class, ConfigKeys.Settings.class, true);
+        configManager.loadConfig("settings.yml", getDataFolder().getAbsolutePath() + "/settings.yml", SuperCombat.class, ConfigKeys.Settings.class, true);
         String language = configManager.getConfig("settings").getNode("settings", "language").getString();
         if (language == null || Language.of(language) == null) language = "en";
-        configManager.loadConfig("language", getDataFolder().getAbsolutePath() + "/language/language_" + language + ".yml", SuperCombat.class, ConfigKeys.Language.class, true);
+        configManager.loadConfig("language.yml", getDataFolder().getAbsolutePath() + "/language/language_" + language + ".yml", SuperCombat.class, ConfigKeys.Language.class, true);
     }
 
 }

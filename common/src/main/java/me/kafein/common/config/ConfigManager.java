@@ -18,9 +18,10 @@ public class ConfigManager {
 
     private final Map<String, ConfigurationNode> configs = new HashMap<>();
 
-    public ConfigManager loadConfig(String configName, String dataFolder, Class<?> mainClass, Class<?> keyClass, boolean prefix) {
+    public ConfigManager loadConfig(String configFolder, String dataFolder, Class<?> mainClass, Class<?> keyClass, boolean prefix) {
+        String configName = configFolder.substring(0, configFolder.indexOf("."));
         ClassLoader classLoader = mainClass.getClassLoader();
-        InputStream inputStream = classLoader.getResourceAsStream(dataFolder.substring(dataFolder.indexOf("/") + 1));
+        InputStream inputStream = classLoader.getResourceAsStream(configFolder);
         try {
             ConfigurationNode config = loader.loadConfig(dataFolder, inputStream);
             if (prefix) loader.loadFields(config, keyClass.getDeclaredFields(), configName);
