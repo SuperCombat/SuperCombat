@@ -20,10 +20,9 @@ public class ConfigManager {
 
     private final Map<String, ConfigurationNode> configs = new HashMap<>();
 
-    public void loadDefaultConfigs(String dataFolder, ConfigType[] configTypes) {
-        Class<?> clazz = SuperCombat.class;
+    public void loadDefaultConfigs(Class<?> mainClass, String dataFolder, ConfigType[] configTypes) {
+        ClassLoader classLoader = mainClass.getClassLoader();
         for (ConfigType configType : configTypes) {
-            ClassLoader classLoader = clazz.getClassLoader();
             String filePath = null;
             InputStream inputStream = null;
             switch (configType) {
