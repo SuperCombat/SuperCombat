@@ -18,7 +18,19 @@ public class ConfigManager {
 
     private final Map<String, ConfigurationNode> configs = new HashMap<>();
 
-    public ConfigManager loadConfig(String configFolder, String dataFolder, Class<?> mainClass, Class<?> keyClass, boolean prefix) {
+    public void loadConfig(String configFolder, String dataFolder, InputStream inputStream, Class<?> keyClass, boolean prefix) {
+        String configName = configFolder.substring(0, configFolder.indexOf("."));
+        try {
+            ConfigurationNode config = loader.loadConfig(dataFolder, inputStream);
+            if (prefix) loader.loadFields(config, keyClass.getDeclaredFields(), configName);
+            else loader.loadFields(config, keyClass.getDeclaredFields());
+            addConfig(configName, config);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    public void loadConfig(String configFolder, String dataFolder, Class<?> mainClass, Class<?> keyClass, boolean prefix) {
         String configName = configFolder.substring(0, configFolder.indexOf("."));
         ClassLoader classLoader = mainClass.getClassLoader();
         InputStream inputStream = classLoader.getResourceAsStream(configFolder);
@@ -30,7 +42,6 @@ public class ConfigManager {
         } catch (Exception e) {
             e.printStackTrace();
         }
-        return this;
     }
 
     @Nullable
