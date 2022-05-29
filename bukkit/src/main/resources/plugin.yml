@@ -1,6 +1,6 @@
 name: SuperCombat
-version: '${version}'
-main: me.kafein.bukkit.SuperCombatPlugin
+version: 1.0.0
+main: me.kafein.supercombat.bukkit.SuperCombatPlugin
 api-version: 1.13
 authors: [ Kafein ]
 description: Combat plugin for minecraft servers.

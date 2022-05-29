@@ -1,32 +1,31 @@
+plugins {
+    id 'java'
+    id 'com.github.johnrengelman.shadow' version '7.1.2'
+}
+
 subprojects {
 
-    apply plugin: 'java-library'
+    apply plugin: 'java'
+    apply plugin: 'com.github.johnrengelman.shadow'
     apply plugin: 'maven-publish'
 
-    group = 'com.github.SuperCombat'
+    group = 'me.kafein.supercombat'
     version = '1.0.0'
-
-    tasks.withType(JavaCompile) {
-        options.encoding = 'UTF-8'
-    }
+    sourceCompatibility = 8
+    targetCompatibility = 8
+    compileJava.options.encoding = 'UTF-8'
 
     repositories {
         mavenCentral()
     }
 
     dependencies {
-        compileOnly 'org.projectlombok:lombok:1.18.24'
-        annotationProcessor 'org.projectlombok:lombok:1.18.24'
-
         implementation 'org.spongepowered:configurate-yaml:3.7.2'
 
+        compileOnly 'org.projectlombok:lombok:1.18.24'
         compileOnly 'org.jetbrains:annotations:23.0.0'
-    }
 
-    processResources {
-        filesMatching("plugin.yml") {
-            expand 'version': project.version
-        }
+        annotationProcessor 'org.projectlombok:lombok:1.18.24'
     }
 
     publishing {
@@ -37,4 +36,8 @@ subprojects {
         }
     }
 
+}
+
+gradle.buildFinished {
+    project.buildDir.deleteDir()
 }
