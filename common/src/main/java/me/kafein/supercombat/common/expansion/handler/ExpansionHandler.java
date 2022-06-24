@@ -27,7 +27,7 @@ public class ExpansionHandler {
     }
 
     public static void reloadConfigAll() {
-        expansions.values().forEach(Expansion::onConfigReload);
+        expansions.values().forEach(Expansion::onReload);
     }
 
     public static void register(Expansion expansion) {

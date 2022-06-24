@@ -1,19 +1,34 @@
 package me.kafein.supercombat.common.expansion;
 
-public interface Expansion {
+import lombok.Getter;
+import lombok.RequiredArgsConstructor;
+import me.kafein.supercombat.common.expansion.info.ExpansionInfo;
 
-    void onEnable();
+@RequiredArgsConstructor
+@Getter
+public abstract class Expansion {
 
-    void onDisable();
+    private final ExpansionInfo info;
 
-    void onConfigReload();
+    public abstract void onEnable();
+    public abstract void onDisable();
 
-    String getName();
+    public void onReload(){}
 
-    String getVersion();
+    public String getName() {
+        return info.getName();
+    }
 
-    String getDescription();
+    public String getDescription() {
+        return info.getDescription();
+    }
 
-    String getAuthor();
+    public String getVersion() {
+        return info.getVersion();
+    }
+
+    public String[] getAuthor() {
+        return info.getAuthors();
+    }
 
 }

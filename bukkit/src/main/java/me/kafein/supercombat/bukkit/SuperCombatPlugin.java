@@ -46,7 +46,6 @@ public final class SuperCombatPlugin extends JavaPlugin {
     public void onDisable() {
 
 
-
     }
 
     public void loadConfigs() {
