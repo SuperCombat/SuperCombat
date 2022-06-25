@@ -25,13 +25,15 @@ public class BukkitDamageListener implements Listener {
 
         if (attackerEntity.equals(defenderEntity)) return;
 
-        Player attacker = (Player) attackerEntity;
-        Tag attackersTag = BukkitTagController.controlPlayer(attacker, defenderEntity, TagReason.ATTACKER);
-        if (attackersTag != null) TagHandler.tagPlayer(attackersTag);
+        if (attackerEntity instanceof Player) {
+            Player attacker = (Player) attackerEntity;
+            Tag attackersTag = BukkitTagController.controlPlayer(attacker, defenderEntity, TagReason.ATTACKER);
+            if (attackersTag != null) TagHandler.tagPlayer(attackersTag);
+        }
 
         if (defenderEntity instanceof Player) {
             Player defender = (Player) defenderEntity;
-            TagHandler.tagPlayer(BukkitTagController.controlPlayer(defender, attacker, TagReason.DEFENDER));
+            TagHandler.tagPlayer(BukkitTagController.controlPlayer(defender, attackerEntity, TagReason.DEFENDER));
         }
 
     }

@@ -10,7 +10,7 @@ subprojects {
     apply plugin: 'maven-publish'
 
     group = 'me.kafein.supercombat'
-    version = '1.0.0'
+    version = '1.0.1'
     sourceCompatibility = 8
     targetCompatibility = 8
     compileJava.options.encoding = 'UTF-8'
