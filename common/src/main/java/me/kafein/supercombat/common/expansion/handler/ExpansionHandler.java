@@ -2,6 +2,7 @@ package me.kafein.supercombat.common.expansion.handler;
 
 import lombok.Getter;
 import me.kafein.supercombat.common.expansion.Expansion;
+import me.kafein.supercombat.common.expansion.classloader.ExpansionClassLoader;
 import me.kafein.supercombat.common.expansion.loader.ExpansionLoader;
 
 import java.util.Map;
@@ -23,7 +24,14 @@ public class ExpansionHandler {
     }
 
     public static void disableAll() {
-        expansions.values().forEach(Expansion::onDisable);
+        try {
+            for (Expansion expansion : expansions.values()) {
+                expansion.onDisable();
+                ((ExpansionClassLoader) expansion.getClass().getClassLoader()).close();
+            }
+        }catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
     public static void reloadConfigAll() {
@@ -31,8 +39,12 @@ public class ExpansionHandler {
     }
 
     public static void register(Expansion expansion) {
+        String name = expansion.getName();
+        if (expansions.containsKey(name)) {
+            throw new IllegalStateException("Expansion with name " + name + " is already registered");
+        }
+        expansions.put(name, expansion);
         expansion.onEnable();
-        expansions.put(expansion.getName(), expansion);
     }
 
     public static void unregister(Expansion expansion) {

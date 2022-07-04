@@ -10,7 +10,7 @@ public class ExpansionInfo {
     private final String name;
     private final String description;
     private final String version;
-    private final String mainClass;
-    private final String[] authors;
+    private final String main;
+    private final String author;
 
 }

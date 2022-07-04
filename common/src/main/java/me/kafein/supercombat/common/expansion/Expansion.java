@@ -27,8 +27,8 @@ public abstract class Expansion {
         return info.getVersion();
     }
 
-    public String[] getAuthor() {
-        return info.getAuthors();
+    public String getAuthor() {
+        return info.getAuthor();
     }
 
 }

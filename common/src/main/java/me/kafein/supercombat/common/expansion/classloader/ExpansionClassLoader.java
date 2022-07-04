@@ -1,23 +1,28 @@
 package me.kafein.supercombat.common.expansion.classloader;
 
+import com.google.common.io.ByteStreams;
 import lombok.Getter;
 import me.kafein.supercombat.common.expansion.Expansion;
 import me.kafein.supercombat.common.expansion.info.ExpansionInfo;
-import org.jetbrains.annotations.Nullable;
 
 import java.io.File;
 import java.io.IOException;
+import java.io.InputStream;
 import java.net.URL;
 import java.net.URLClassLoader;
-import java.util.ArrayList;
-import java.util.List;
+import java.security.CodeSigner;
+import java.security.CodeSource;
+import java.util.Enumeration;
+import java.util.Map;
+import java.util.concurrent.ConcurrentHashMap;
 import java.util.jar.JarEntry;
 import java.util.jar.JarFile;
-import java.util.jar.JarInputStream;
 import java.util.jar.Manifest;
 
 @Getter
 public class ExpansionClassLoader extends URLClassLoader {
+
+    private final Map<String, Class<?>> classes = new ConcurrentHashMap<>();
 
     private final JarFile jarFile;
     private final Manifest manifest;
@@ -30,47 +35,81 @@ public class ExpansionClassLoader extends URLClassLoader {
         this.manifest = jarFile.getManifest();
         this.url = file.toURI().toURL();
 
-        Class<?> mainClass = Class.forName(expansionInfo.getMainClass(), true, this);
-        if (!mainClass.isAssignableFrom(Expansion.class)) {
-            throw new Exception("Main class " + expansionInfo.getMainClass() + " is not assignable from " + Expansion.class.getName());
-        }
+        Class<?> mainClass = Class.forName(expansionInfo.getMain(), true, this);
         expansion = mainClass
                 .asSubclass(Expansion.class)
                 .getConstructor(ExpansionInfo.class)
                 .newInstance(expansionInfo);
     }
 
-    @Nullable
-    public <T> Class<? extends T> findClass(Class<T> clazz) throws IOException, ClassNotFoundException {
+    @Override
+    protected Class<?> findClass(String name) throws ClassNotFoundException {
+        Class<?> result = classes.get(name);
 
-        final URL jar = getURLs()[0];
-        final List<String> matches = new ArrayList<>();
-        final List<Class<? extends T>> classes = new ArrayList<>();
+        if (result == null) {
+            String path = name.replace('.', '/').concat(".class");
+            JarEntry entry = jarFile.getJarEntry(path);
 
-        try (JarInputStream stream = new JarInputStream(jar.openStream())) {
-            JarEntry entry;
-            while ((entry = stream.getNextJarEntry()) != null) {
-                final String name = entry.getName();
-                if (!name.endsWith(".class")) {
-                    continue;
+            if (entry != null) {
+                byte[] classBytes;
+
+                try (InputStream is = jarFile.getInputStream(entry)) {
+                    classBytes = ByteStreams.toByteArray(is);
+                } catch (IOException ex) {
+                    throw new ClassNotFoundException(name, ex);
                 }
-                matches.add(name.substring(0, name.lastIndexOf('.')).replace('/', '.'));
-            }
-            for (final String match : matches) {
-                try {
-                    final Class<?> loaded = loadClass(match);
-                    if (clazz.isAssignableFrom(loaded)) {
-                        classes.add(loaded.asSubclass(clazz));
+
+                int dot = name.lastIndexOf('.');
+                if (dot != -1) {
+                    String pkgName = name.substring(0, dot);
+                    if (getPackage(pkgName) == null) {
+                        try {
+                            if (manifest != null) {
+                                definePackage(pkgName, manifest, url);
+                            } else {
+                                definePackage(pkgName, null, null, null, null, null, null, null);
+                            }
+                        } catch (IllegalArgumentException ex) {
+                            if (getPackage(pkgName) == null) {
+                                throw new IllegalStateException("Cannot find package " + pkgName);
+                            }
+                        }
                     }
-                } catch (NoClassDefFoundError ignored) {
                 }
+
+                CodeSigner[] signers = entry.getCodeSigners();
+                CodeSource source = new CodeSource(url, signers);
+
+                result = defineClass(name, classBytes, 0, classBytes.length, source);
             }
+
+            if (result == null) {
+                result = super.findClass(name);
+            }
+
+            classes.put(name, result);
         }
-        if (classes.isEmpty()) {
-            close();
-            return null;
+
+        return result;
+    }
+
+    @Override
+    public URL getResource(final String name) {
+        return findResource(name);
+    }
+
+    @Override
+    public Enumeration<URL> getResources(final String name) throws IOException {
+        return findResources(name);
+    }
+
+    @Override
+    public void close() throws IOException {
+        try {
+            super.close();
+        } finally {
+            jarFile.close();
         }
-        return classes.get(0);
     }
 
 }
