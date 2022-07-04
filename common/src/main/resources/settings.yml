@@ -1,31 +1,131 @@
 settings:
 
+  # Select of the language to use
+  # default: en
   language: "en"
 
-  admin-permission: "sct.admin"
+  # Admin permission for bypass
+  # default: 'supercombat.admin'
+  admin-permission: "supercombat.admin"
 
-  #default: false
+  # default: false
   mob-tagging: false
 
-  #default: 30
+  # default: true
+  projectile-tagging: true
+
+  # default: 30
   tag-duration: 30
 
-  quit-punishment:
-    enabled: true
-    kick-enabled: true
-    punishment-commands: []
+  # If player is enters a combat, they will be only tagged himself
+  # default: false
+  only-tagging-self: false
 
-  #Untag if the player dies
+  bypass-tagging:
+    # If player has admin permission, bypass the tagging
+    # default: true
+    enabled: true
+    # If player's gamemode is creative, bypass the tagging
+    creative-bypass: true
+
+  quit-punishment:
+    # default true
+    enabled: true
+    # default: true
+    kick-enabled: true
+    # %player% is replaced with the player's name
+    commands: [ ]
+
+  # Untag if the player dies
   death-untagging:
-    #default: true
+    # default: true
     self: true
-    #default: false
+    # default: false
     enemy: false
 
-  #Disable teleport when player is tagged
-  #default: false
-  disable-teleport: false
+  # If the player is tagged, block some things
+  blockers:
 
-  command-whitelist:
-    enabled: false
-    commands: []
+    # If the player is tagged, can't will be opened the inventory
+    # default: false
+    inventory-blocker: false
+
+    # If the player is tagged, can't will be fly
+    # default: true
+    fly-blocker: true
+
+    # If the player is tagged, can't will be break blocks
+    # default: false
+    block-break-blocker: false
+
+    # If the player is tagged, can't will be place blocks
+    # default: false
+    block-place-blocker: false
+
+    # If the player is tagged, can't will be drop items
+    # default: false
+    item-drop-blocker: false
+
+    # If the player is tagged, can't will be pickup items
+    # default: false
+    item-pickup-blocker: false
+
+    # If the player is tagged, can't will be use the elytra
+    # default: true
+    elytra-blocker: true
+
+    # If the player is tagged, can't will be use the chorus fruit
+    # default: true
+    chorusfruit-blocker: true
+
+    # If the player is tagged, can't will be teleport
+    teleport-blocker:
+      # default: true
+      enabled: true
+      # If teleport's cause is plugin, it will be ignored
+      # default: false
+      plugin-teleport: false
+      # If player's teleport is accepted, untag him
+      # default: true
+      teleport-untagging: true
+
+    # If the player is tagged, can't will be use commands
+    command-blocker:
+      # default: false
+      enabled: false
+      # types: blacklist or whitelist
+      type: "blacklist"
+      # %player% is replaced with the player's name
+      commands: [ ]
+
+    # Set worlds where players can combat
+    world-blocker:
+      # default: false
+      enabled: false
+      # types: blacklist or whitelist
+      type: "blacklist"
+      worlds:
+        - "world"
+
+  # If player is enters a combat, execute the commands
+  command-execution:
+    # If player is tagged, execute the commands
+    tagging:
+      # default: false
+      enabled: false
+      # %player% is replaced with the player's name
+      commands: [ ]
+
+    # If player is untagged, execute the commands
+    untagging:
+      # default: false
+      enabled: false
+      # %player% is replaced with the player's name
+      commands: [ ]
+
+    # If player is retagged, execute the commands
+    retagging:
+      # default: false
+      enabled: false
+      # %player% is replaced with the player's name
+      commands: [ ]

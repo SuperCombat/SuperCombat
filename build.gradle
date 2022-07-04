@@ -20,8 +20,14 @@ subprojects {
     }
 
     dependencies {
-        implementation 'org.spongepowered:configurate-yaml:3.7.2'
+        implementation('org.spongepowered:configurate-yaml:3.7.2') {
+            exclude group: 'org.yaml', module: 'snakeyaml'
+            exclude group: 'com.google.inject'
+            exclude group: 'com.google.guava'
+        }
 
+        compileOnly 'org.yaml:snakeyaml:1.30'
+        compileOnly 'com.google.guava:guava:31.1-jre'
         compileOnly 'org.projectlombok:lombok:1.18.24'
         compileOnly 'org.jetbrains:annotations:23.0.0'
 

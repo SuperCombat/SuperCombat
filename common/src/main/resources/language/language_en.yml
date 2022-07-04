@@ -1,14 +1,36 @@
 language:
 
-  prefix: "&6SuperCombatTag &8➜"
+  prefix: "&6SuperCombat &8➜"
 
-  no-permission: "&cYou don't have permission to use this command."
-  no-player: "&cYou must be a player to use this command."
+  reloaded: "%prefix% &aSuccessfully reloaded the plugin."
+
+  no-permission: "%prefix% &cYou don't have permission to use this command."
+  no-player: "%prefix% &cYou must be a player to use this command."
+  player-not-found: "%prefix% &e%player% &7is offline."
 
   help-message:
     - ""
-    - "&6SuperCombatTag &8➜ &7SuperCombatTag Help"
+    - "  &6&l❘ &e&lSuperCombat"
     - ""
-    - "&7/sct help &8- &7Show the help message."
-    - "&7/sct reload &8- &7Reload the config."
+    - "  &e&l▪ &7/supercombat help &8- &eShow the help message."
+    - "  &e&l▪ &7/supercombat reload &8- &eReload the config."
+    - "  &e&l▪ &7/supercombat untag <player> &8- &eUntag a player."
     - ""
+
+  tag-messages:
+    unknown-cause: "%prefix% &eYou are tagged for &6%duration% &eseconds because of an unknown cause."
+    attacker-tagged: "%prefix% &eYou are tagged with &6%defender%&e for &6%duration%&e seconds."
+    defender-tagged: "%prefix% &eYou are tagged by &6%attacker%&e for &6%duration%&e seconds."
+    untagged: "%prefix% &eYou are no longer in combat."
+
+  blocker-messages:
+    inventory-is-blocked: "%prefix% &cYou can't open the any inventory while you are tagged!"
+    fly-is-blocked: "%prefix% &cYou can't fly while you are tagged!"
+    teleport-is-blocked: "%prefix% &cYou can't teleport while you are tagged!"
+    command-is-blocked: "%prefix% &cYou can't use &e'/%command%' &ccommand while you are tagged!"
+    block-break-is-blocked: "%prefix% &cYou can't break blocks while you are tagged!"
+    block-place-is-blocked: "%prefix% &cYou can't place blocks while you are tagged!"
+    item-drop-is-blocked: "%prefix% &cYou can't drop items while you are tagged!"
+    item-pickup-is-blocked: "%prefix% &cYou can't pickup items while you are tagged!"
+    elytra-is-blocked: "%prefix% &cYou can't use elytra while you are tagged!"
+    chorusfruit-is-blocked: "%prefix% &cYou can't eat chorus fruit while you are tagged!"

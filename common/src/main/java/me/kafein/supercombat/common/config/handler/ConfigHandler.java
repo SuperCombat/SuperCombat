@@ -5,6 +5,7 @@ import lombok.RequiredArgsConstructor;
 import me.kafein.supercombat.common.config.Config;
 import me.kafein.supercombat.common.config.ConfigType;
 import me.kafein.supercombat.common.config.key.ConfigKey;
+import me.kafein.supercombat.common.config.key.ConfigKeys;
 import me.kafein.supercombat.common.config.node.NodeLoader;
 import ninja.leaping.configurate.ConfigurationNode;
 
@@ -22,6 +23,32 @@ import java.util.Optional;
 public class ConfigHandler {
 
     private static final Map<String, Config> configs = new HashMap<>();
+
+    /**
+     * Loads config from file and puts it to configs map.
+     *
+     * if config is already loaded, it will be reloaded.
+     */
+    public static void init() {
+        ClassLoader classLoader = ConfigHandler.class.getClassLoader();
+        ConfigHandler.createConfig("settings",
+                "settings.yml",
+                classLoader.getResourceAsStream("settings.yml")).ifPresent(config -> {
+            ConfigHandler.put(ConfigType.SETTINGS, config);
+            ConfigHandler.putNodesToClass(config, ConfigType.SETTINGS.getClazz(), true);
+        });
+
+        String language = ConfigKeys.Settings.LANGUAGE.getValue();
+        InputStream inputStream = classLoader.getResourceAsStream("language/" + language + ".yml");
+        if (inputStream == null) inputStream = classLoader.getResourceAsStream("language/language_en.yml");
+        ConfigHandler.createConfig("language",
+                "language/language_" + language + ".yml",
+                inputStream).ifPresent(config -> {
+            ConfigHandler.put(ConfigType.LANGUAGE, config);
+            ConfigHandler.putNodesToClass(config, ConfigType.LANGUAGE.getClazz(), true);
+        });
+    }
+
 
     /**
      * Put config's nodes into a class's fields

@@ -5,7 +5,7 @@ repositories {
 
 dependencies {
     implementation project(':common')
-    implementation "co.aikar:acf-bukkit:0.5.1-SNAPSHOT"
+    implementation 'co.aikar:acf-bukkit:0.5.1-SNAPSHOT'
 
     compileOnly 'org.spigotmc:spigot-api:1.18.2-R0.1-SNAPSHOT'
 }
@@ -15,10 +15,7 @@ shadowJar {
 
     relocate 'co.aikar.commands', 'me.kafein.supercombat.libraries.aikar.acf'
     relocate 'co.aikar.locales', 'me.kafein.supercombat.libraries.aikar.locales'
-    relocate 'com.google', 'me.kafein.supercombat.libraries.com.google'
     relocate 'ninja.leaping', 'me.kafein.supercombat.libraries.ninja.leaping'
-    relocate 'org.yaml', 'me.kafein.supercombat.libraries.org.yaml'
-    relocate 'org.codehaus.mojo', 'me.kafein.supercombat.libraries.org.codehaus.mojo'
     relocate 'org.checkerframework', 'me.kafein.supercombat.libraries.org.checkerframework'
 }
 
@@ -29,5 +26,5 @@ tasks.jar {
 }
 
 tasks.shadowJar {
-    archiveFileName.set('SuperCombat.jar')
+    archiveFileName.set('SuperCombat [' + version + '].jar')
 }

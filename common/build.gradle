@@ -4,7 +4,6 @@ repositories {
 }
 
 dependencies {
-
 }
 
 gradle.buildFinished {
