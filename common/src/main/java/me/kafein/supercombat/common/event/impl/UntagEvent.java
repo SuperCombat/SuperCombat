@@ -21,7 +21,7 @@ public class UntagEvent implements Event {
     }
 
     public EventType getType() {
-        return EventType.UN_TAG;
+        return EventType.UNTAG;
     }
 
 }

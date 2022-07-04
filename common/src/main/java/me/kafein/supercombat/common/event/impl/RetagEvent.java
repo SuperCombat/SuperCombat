@@ -20,7 +20,7 @@ public class RetagEvent implements Event {
     }
 
     public EventType getType() {
-        return EventType.RE_TAG;
+        return EventType.RETAG;
     }
 
 }

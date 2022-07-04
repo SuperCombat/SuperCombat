@@ -33,7 +33,7 @@ public class Tag {
     }
 
     public long getDuration() {
-        return (duration - System.currentTimeMillis() * 1000);
+        return (duration - System.currentTimeMillis()) / 1000;
     }
 
 }

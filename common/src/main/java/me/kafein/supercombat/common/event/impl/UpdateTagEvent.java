@@ -23,7 +23,7 @@ public class UpdateTagEvent implements Event {
     }
 
     public EventType getType() {
-        return EventType.UPDATE_TAG;
+        return EventType.UPDATETAG;
     }
 
 }
