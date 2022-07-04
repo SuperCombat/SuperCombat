@@ -59,7 +59,7 @@ public class ExpansionLoader {
                 (String) map.get("description"),
                 (String) map.get("version"),
                 (String) map.get("main"),
-                (String) map.get("authors")
+                (String) map.get("author")
         );
     }
 
